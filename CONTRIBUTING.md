@@ -35,7 +35,7 @@ Ejemplo: `git branch dev`
 
 Actualizar rama
 ```
-git pull origin master
+git pull origin dev
 ```
 - - -
 
