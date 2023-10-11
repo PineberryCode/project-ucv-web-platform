@@ -40,4 +40,4 @@ git pull origin dev
 ```
 - - -
 
-Una vez realizado un 'git push' en tu repositorio local/ a tu fork remoto deberás seleccionar la pestaña 'Pull requests' del repositorio 'project-ucv-web-system' de la organización **University-X** para evaluar tu solicitud.
+Una vez realizado un 'git push' en tu repositorio local a tu fork remoto deberás seleccionar la pestaña 'Pull requests' del repositorio 'project-ucv-web-system' de la organización **University-X** para evaluar tu solicitud.
