@@ -3,6 +3,7 @@
 - Deben realizar sus cambios en su rama/fork para luego enviar una solicitud de modificación al repositorio original 'project-ucv-web-system' de la organización **University-X**.
 - Los archivos con extensión [.html/.mustache] deberán estar en la ruta `/src/main/resources/templates`.
 - Los archivos con extensión [.css/.jpg/.png] entre otros formatos de imagen deberán estar en la ruta `/src/main/resources/static`.
+- Apoyarse del framework [**Bootstrap**](https://getbootstrap.com/docs/5.0/getting-started/introduction/) para el diseño de páginas.
 
 #### Saberes previos para CONTRIBUTING
 
