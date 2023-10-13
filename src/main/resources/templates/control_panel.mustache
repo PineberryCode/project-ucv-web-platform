@@ -5,8 +5,40 @@
         {{> partials/header}}
     </head>
     <body>
-        <div class="container text-center p-5">
-            <h1>Control panel</h1>
+    <div class="container">
+        <div class="container position-absolute top-0 start-0 shadow p-3 mb-5 bg-body rounded w-25 h-100">
+            <h1 class="p-3">EMPRESA</h1>
+            <ul class="nav flex-column">
+                <li class="nav-item p-2 mb-2">
+                  <a class="nav-link disabled" aria-current="page">Panel de Control</a>
+                </li>
+                <li class="nav-item p-2 mb-2">
+                  <a class="nav-link" href="#">Proveedores</a>
+                </li>
+                <li class="nav-item p-2 mb-2">
+                  <a class="nav-link" href="#">Ventas</a>
+                </li>
+                <li class="nav-item p-2 mb-2">
+                  <a class="nav-link" href="#">Stock</a>
+                </li>
+                <li class="nav-item p-2 mb-2">
+                  <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Usuarios</a>
+                </li>
+            </ul>
         </div>
+        <div class="container position-absolute top-0 end-0 d-flex justify-content-center ms-5 w-100 h-100">
+            <div class="w-100 h-100 ms-5 p-5">
+                <div class="w-100 h-100 ms-5">
+                    Here graphics with ChartJS
+                </div>
+            </div>
+        </div>
+        <div class="position-absolute top-0 end-0 shadow-lg p-3 mb-5 bg-body rounded">
+          <form action="/restricted/control-panel/logout" method="POST">
+            <button type="submit" class="btn btn-danger">Log Out</button>
+          </form>
+        </div>
+    </div>
     </body>
+
 </html>

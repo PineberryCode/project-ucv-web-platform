@@ -52,7 +52,12 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.GET, "/restricted/login-view").permitAll();
 
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/login-view/login").permitAll();
-            authConfig.requestMatchers(HttpMethod.GET, "/restricted/control-panel").hasRole(Role.ADMIN.name());//.hasAnyAuthority(Permission.REGISTER_PRODUCT.name());//
+            authConfig.requestMatchers(HttpMethod.GET, "/restricted/control-panel").hasAnyRole(
+                Role.ADMIN.name(),Role.WAREHOUSE_MANAGER.name(),Role.VENDEDOR.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/logout").hasAnyRole(
+                Role.ADMIN.name(),Role.WAREHOUSE_MANAGER.name(),Role.VENDEDOR.name()
+            );
 
             authConfig.requestMatchers("/error").permitAll();
             authConfig.anyRequest().denyAll();
