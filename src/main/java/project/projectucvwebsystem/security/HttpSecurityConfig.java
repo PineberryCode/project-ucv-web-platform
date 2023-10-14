@@ -47,6 +47,8 @@ public class HttpSecurityConfig {
              * Static
              */
             authConfig.requestMatchers(HttpMethod.GET, "/static/bootstrap.min.css").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/css/id.css").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/js/tab.jsx").permitAll();
             
             authConfig.requestMatchers(HttpMethod.GET, "/global/welcome").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/restricted/login-view").permitAll();

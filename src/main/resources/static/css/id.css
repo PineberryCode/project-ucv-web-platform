@@ -1,0 +1,7 @@
+/*
+ * /control-panel
+ */
+#tab-supplier,#tab-sales,
+#tab-stock,#tab-users {
+    cursor: pointer;
+}

@@ -3,6 +3,11 @@
 <html>
     <head>
         {{> partials/header}}
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script defer type="text/babel" src="/static/js/tab.jsx"></script>
+        <link rel="stylesheet" href="/static/css/id.css">
     </head>
     <body>
     <div class="container">
@@ -13,23 +18,23 @@
                   <a class="nav-link disabled" aria-current="page">Panel de Control</a>
                 </li>
                 <li class="nav-item p-2 mb-2">
-                  <a class="nav-link" href="#">Proveedores</a>
+                  <a id="tab-supplier" class="nav-link">Proveedores</a>
                 </li>
                 <li class="nav-item p-2 mb-2">
-                  <a class="nav-link" href="#">Ventas</a>
+                  <a id="tab-sales" class="nav-link">Ventas</a>
                 </li>
                 <li class="nav-item p-2 mb-2">
-                  <a class="nav-link" href="#">Stock</a>
+                  <a id="tab-stock" class="nav-link">Stock</a>
                 </li>
                 <li class="nav-item p-2 mb-2">
-                  <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Usuarios</a>
+                  <a id="tab-users" class="nav-link">Usuarios</a>
                 </li>
             </ul>
         </div>
         <div class="container position-absolute top-0 end-0 d-flex justify-content-center ms-5 w-100 h-100">
             <div class="w-100 h-100 ms-5 p-5">
-                <div class="w-100 h-100 ms-5">
-                    Here graphics with ChartJS
+                <div id="overview-x" class="w-100 h-100 ms-5">
+                    
                 </div>
             </div>
         </div>
@@ -38,6 +43,13 @@
             <button type="submit" class="btn btn-danger">Log Out</button>
           </form>
         </div>
+        <!--<script type="text/javascript">
+          const App = () => {
+            return React.createElement('div', null, 'Hola, mundo desde React!');
+          };
+
+          ReactDOM.render(React.createElement(App), document.getElementById('overview-x'));
+        </script>-->
     </div>
     </body>
 
