@@ -3,10 +3,16 @@
 <html>
     <head>
         {{> partials/header}}
-        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-        <script defer type="text/babel" src="/static/js/tab.jsx"></script>
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script data-type="text/javascript" type="text/babel" src="/static/js/components/form.jsx"></script>
+        <script data-type="text/javascript" type="text/babel" src="/static/js/graphic.jsx"></script>
+        <script data-type="text/javascript" type="text/babel" src="/static/js/listener.jsx"></script>
+        <!--<script defer src="/static/js/highcharts.js"></script>
+        <script defer src="/static/js/jquery.js"></script>-->
+        <!--<script defer data-type="module" type="text/babel" src="/static/js/tab.jsx"></script>-->
         <link rel="stylesheet" href="/static/css/id.css">
     </head>
     <body>
@@ -34,7 +40,7 @@
         <div class="container position-absolute top-0 end-0 d-flex justify-content-center ms-5 w-100 h-100">
             <div class="w-100 h-100 ms-5 p-5">
                 <div id="overview-x" class="w-100 h-100 ms-5">
-                    
+                    <!--<div id="curve_chart" style="width: 900px; height: 500px"></div>-->
                 </div>
             </div>
         </div>
@@ -43,14 +49,19 @@
             <button type="submit" class="btn btn-danger">Log Out</button>
           </form>
         </div>
-        <!--<script type="text/javascript">
-          const App = () => {
-            return React.createElement('div', null, 'Hola, mundo desde React!');
-          };
-
-          ReactDOM.render(React.createElement(App), document.getElementById('overview-x'));
-        </script>-->
     </div>
+    <script type="text/javascript">
+      //console.log({{Categories}})
+      //const Categories = {{Categories}}
+      //console.log('{{{Categories}}}');
+      //const categories = JSON.parse('{{{Categories}}}');
+      //console.log('{{{ObjectNameLargeAndQuantities}}}');
+      localStorage.removeItem('Categories');
+      localStorage.removeItem('ObjectNameLargeAndQuantities');
+      /**/
+      localStorage.setItem('Categories', JSON.stringify('{{{Categories}}}'));
+      localStorage.setItem('ObjectNameLargeAndQuantities', JSON.stringify('{{{ObjectNameLargeAndQuantities}}}'));
+      //localStorage.setItem('ObjectNameLargeAndQuantities',JSON.stringigy({{ObjectNameLargeAndQuantities}}));
+    </script>
     </body>
-
 </html>

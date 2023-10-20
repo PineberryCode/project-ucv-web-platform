@@ -24,7 +24,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private JWTService jwtService;
 
     @Autowired
-    private UserRepository userRepo;
+    private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -47,7 +47,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String username = jwtService.extractUsername(token);
-        User user = userRepo.findByUsername(username).get();
+        User user = userRepository.findByUsername(username).get();
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken (
             username,null,user.getAuthorities()

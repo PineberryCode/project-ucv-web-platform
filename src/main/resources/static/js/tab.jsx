@@ -1,4 +1,8 @@
+//import {Graphic} from "/static/js/components/graphic.jsx";
+//React.component
 const { useState, useEffect } = React;
+//import React, {useState, useEffect} from 'react';
+//const { Chart } = ReactDOM.Chart;
 
 let tab_supplier = document.getElementById('tab-supplier');
 let tab_sales = document.getElementById('tab-sales');
@@ -9,15 +13,6 @@ let overview_x = document.getElementById('overview-x');
 
 // Utilize only one component
 // Remember: Improve this code. Using of (useEffect and components).
-
-const ComponentTabSupplier = () => {
-    return (
-        <div>
-            <h1>Supplier</h1>
-        </div>
-    );
-}
-
 const ComponentTabSales = () => {
     return (
         <div>
@@ -62,6 +57,11 @@ const ComponentTabUser = () => {
 }
 
 const App = () => {
+
+    const graphic_data = {
+        value_button: 'Hola I am a button'
+    }
+
     const [tab, setTab] = useState ();
 
     const handleTabClick = (tab_component) => {
@@ -71,12 +71,6 @@ const App = () => {
     useEffect(() => {
         tab_users.addEventListener('click', () => {
             const tab_compo= <ComponentTabUser />;
-            handleTabClick(tab_compo);
-        });
-
-
-        tab_supplier.addEventListener('click', () => {
-            const tab_compo = <ComponentTabSupplier />
             handleTabClick(tab_compo);
         });
 
@@ -92,7 +86,6 @@ const App = () => {
 
         return () => {
             tab_users.removeEventListener('click', handleTabClick(<ComponentTabUser />));
-            tab_supplier.removeEventListener('click', handleTabClick(<ComponentTabSupplier />));
             tab_sales.removeEventListener('click', handleTabClick(<ComponentTabSales />));
             tab_stock.removeEventListener('click', handleTabClick(<ComponentTabStock />));
         };
@@ -100,6 +93,7 @@ const App = () => {
     return (
         <div className="container text-center p-5">
             {tab}
+            
         </div>
     );
 }
