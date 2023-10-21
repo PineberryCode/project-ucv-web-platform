@@ -17,7 +17,8 @@ public enum Role {
             Permission.MODIFY_PRODUCT,
             Permission.MODIFY_SALE,
             Permission.MODIFY_SUPPLIER,
-            Permission.DELETE_PRODUCT
+            Permission.DELETE_PRODUCT,
+            Permission.DELETE_SUPPLIER
         )
     ),
     WAREHOUSE_MANAGER(

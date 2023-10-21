@@ -44,5 +44,5 @@ function drawStockBarChart () {
 
     chart.draw(data, options);
 }
-
+//Render the graphic with ReactDOM 
 //export default drawStockBarChart

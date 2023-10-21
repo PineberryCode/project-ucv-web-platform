@@ -13,8 +13,8 @@ getElementById('tab-sales');
 var tabStock = document.
 getElementById('tab-stock');
 
-var tabUsers = document.
-getElementById('tab-users');
+var tabEmployee = document.
+getElementById('tab-employee');
 
 tabSupplier.addEventListener('click', () => {
     ReactDOM.render(<SupplierForm />, overview_x);
@@ -25,10 +25,13 @@ tabSales.addEventListener('click', () => {
 });
 
 tabStock.addEventListener('click', () => {
+    /*ReactDOM.render( ()=> {
+
+    })*/
     google.charts.load('current', {'packages':['corechart','bar']});
     google.charts.setOnLoadCallback(drawStockBarChart);
 });
 
-tabUsers.addEventListener('click', () => {
-    console.log('UnexpectedError... Users')
+tabEmployee.addEventListener('click', () => {
+    ReactDOM.render(<EmployeeForm />, overview_x);
 });

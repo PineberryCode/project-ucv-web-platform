@@ -17,7 +17,7 @@
     </head>
     <body>
     <div class="container">
-        <div class="container position-absolute top-0 start-0 shadow p-3 mb-5 bg-body rounded w-25 h-100">
+        <div class="container position-fixed top-0 start-0 shadow p-3 mb-5 bg-body rounded w-25 h-100">
             <h1 class="p-3">EMPRESA</h1>
             <ul class="nav flex-column">
                 <li class="nav-item p-2 mb-2">
@@ -33,7 +33,7 @@
                   <a id="tab-stock" class="nav-link">Stock</a>
                 </li>
                 <li class="nav-item p-2 mb-2">
-                  <a id="tab-users" class="nav-link">Usuarios</a>
+                  <a id="tab-employee" class="nav-link">Empleados</a>
                 </li>
             </ul>
         </div>
@@ -51,17 +51,14 @@
         </div>
     </div>
     <script type="text/javascript">
-      //console.log({{Categories}})
-      //const Categories = {{Categories}}
-      //console.log('{{{Categories}}}');
-      //const categories = JSON.parse('{{{Categories}}}');
-      //console.log('{{{ObjectNameLargeAndQuantities}}}');
+      localStorage.removeItem('SupplierData');
       localStorage.removeItem('Categories');
       localStorage.removeItem('ObjectNameLargeAndQuantities');
       /**/
+      localStorage.setItem('SupplierData', JSON.stringify('{{{SupplierData}}}'));
+      console.log('{{{SupplierData}}}');
       localStorage.setItem('Categories', JSON.stringify('{{{Categories}}}'));
       localStorage.setItem('ObjectNameLargeAndQuantities', JSON.stringify('{{{ObjectNameLargeAndQuantities}}}'));
-      //localStorage.setItem('ObjectNameLargeAndQuantities',JSON.stringigy({{ObjectNameLargeAndQuantities}}));
     </script>
     </body>
 </html>

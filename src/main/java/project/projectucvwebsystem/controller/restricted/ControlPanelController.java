@@ -8,15 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import project.projectucvwebsystem.Routes.Render;
-import project.projectucvwebsystem.service.GraphDataService;
 import project.projectucvwebsystem.service.ProductService;
+import project.projectucvwebsystem.service.SupplierService;
 
 @Controller
 @RequestMapping("/restricted")
@@ -26,7 +28,7 @@ public class ControlPanelController {
     ProductService productService;
 
     @Autowired
-    GraphDataService graphDataService;
+    SupplierService supplierService;
 
     @Autowired
     HttpServletRequest request;
@@ -42,6 +44,16 @@ public class ControlPanelController {
     
     @GetMapping("/control-panel") //corregir /login-view/control-panel antes era /control-panel
     public String ControlPanel (Model model) {
+
+        List<Object[]> listSupplierData = supplierService.findAllSuppliers();
+        String supplierData = listSupplierData.stream()
+        .map(supplier -> supplier[0]+"-"+supplier[1]+"-"+supplier[2]+"-"+supplier[3]+"-"+supplier[4])
+        .collect(Collectors.joining(","));
+        model.addAttribute("SupplierData", supplierData);
+        /*for (Object[] supplier : listSupplierData) {
+            System.out.println(supplier[1]);
+        }*/
+
         String[] categories = productService.getCategories();
         String Categories = Arrays.stream(categories)
         .map(category -> ""+category+"").collect(Collectors.joining(","));
@@ -71,6 +83,16 @@ public class ControlPanelController {
         }
 
         return "redirect:/restricted/login-view";
+    }
+
+    @PostMapping("/control-panel/delete-supplier")
+    public String DeleteSupplier (
+        @RequestParam("supplierID") int ID
+    ) {
+
+        supplierService.DeleteOnlySupplier(ID);
+
+        return "redirect:/restricted/control-panel";
     }
 
 }

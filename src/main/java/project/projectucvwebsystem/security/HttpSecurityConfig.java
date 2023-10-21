@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Component;
 
 import project.projectucvwebsystem.security.filter.JWTAuthenticationFilter;
+import project.projectucvwebsystem.util.Permission;
 import project.projectucvwebsystem.util.Role;
 
 @Component
@@ -65,6 +66,9 @@ public class HttpSecurityConfig {
             );
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/logout").hasAnyRole(
                 Role.ADMIN.name(),Role.WAREHOUSE_MANAGER.name(),Role.VENDEDOR.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/delete-supplier").hasAuthority(
+                Permission.DELETE_SUPPLIER.name()
             );
 
             authConfig.requestMatchers("/error").permitAll();
