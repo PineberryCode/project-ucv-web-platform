@@ -49,12 +49,13 @@ public class HttpSecurityConfig {
              */
             authConfig.requestMatchers(HttpMethod.GET, "/static/bootstrap.min.css").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/css/id.css").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/js/request.js").permitAll();
             //authConfig.requestMatchers(HttpMethod.GET, "/static/js/tab.jsx").permitAll();
             //authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/graphic.jsx").permitAll();
             //authConfig.requestMatchers(HttpMethod.GET, "/static/js/highcharts.js").permitAll();
             //authConfig.requestMatchers(HttpMethod.GET, "/static/js/jquery.js").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/js/graphic.jsx").permitAll();
-            authConfig.requestMatchers(HttpMethod.GET, "/static/js/listener.jsx").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/js/render.jsx").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/form.jsx").permitAll();
             
             authConfig.requestMatchers(HttpMethod.GET, "/global/welcome").permitAll();
@@ -69,6 +70,9 @@ public class HttpSecurityConfig {
             );
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/delete-supplier").hasAuthority(
                 Permission.DELETE_SUPPLIER.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-supplier").hasAuthority(
+                Permission.MODIFY_SUPPLIER.name()
             );
 
             authConfig.requestMatchers("/error").permitAll();

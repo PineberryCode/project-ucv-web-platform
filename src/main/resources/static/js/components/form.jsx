@@ -22,22 +22,41 @@ const SupplierForm = () => {
     const [supplierData, setSupplierData] = useState(sliceSupplierData);
 
     const handleDoubleClick = (rowIndex, columnIndex) => {
-        if (!isEditing) {
+        if (!isEditing && columnIndex !== 0) {
+            
             setEditMode({row:rowIndex, col:columnIndex});
+            
             setIsEditing(true);
         }
+        
     };
 
     const handleInputChange = (e, rowIndex, columnIndex) => {
         const updatedData = [...supplierData];
         updatedData[rowIndex][columnIndex] = e.target.value;
+        //var value = document.getElementById(columnIndex+""+rowIndex).textContent;
+        document.cookie =`extractedValue=${e.target.value}; path=/restricted; max-age=3600;`;
+        //console.log("Row:"+rowIndex+" Column: "+columnIndex+": "+e.target.value);
         setSupplierData(updatedData);
+        document.cookie=`extractedColumn=${columnIndex}; path=/restricted; max-age=3600;`;
+        
     }
 
-    const handleInputKeyDown = (e) => {
+    const handleInputKeyDown = (e, rowIndex, columnIndex) => {
         if (e.key === 'Enter') {
             setEditMode(null);
             setIsEditing(false);
+            
+        }
+        
+    }
+
+    const handleInputKeyUp = (e, rowIndex, columnIndex) => {
+        if (e.key === 'Enter') {
+            setEditMode(null);
+            
+            setIsEditing(false);
+            
         }
     }
     
@@ -59,21 +78,27 @@ const SupplierForm = () => {
                 {sliceSupplierData.map((supplier, rowIndex) => (
                     <tr 
                     key={rowIndex}
+                    className="text-center"
                     >
                         {supplier.map((cell, columnIndex) => (
                             <td key={columnIndex} 
                             onDoubleClick={() => handleDoubleClick(rowIndex, columnIndex)}
-                            id={columnIndex === 0 ? `${columnIndex}${rowIndex}` : null}
+                            id={`${columnIndex}${rowIndex}`}
                             >
+                                
                                 {editMode && editMode.row === rowIndex && editMode.col === columnIndex ? 
                                 (
+                                    <form action="/restricted/control-panel/update-supplier" method="POST">
                                     <input
                                     className="form-control" 
                                     type="text" 
                                     value={cell} 
                                     onChange={(e) => handleInputChange(e,rowIndex,columnIndex)}
-                                    onKeyDown={handleInputKeyDown}
+                                    onKeyDown={handleInputKeyDown(rowIndex, columnIndex)}
+                                    onKeyUp={handleInputKeyUp(rowIndex, columnIndex)}
                                     />
+                                    <input type="hidden" name="supplierID" value={supplier[0]}/>
+                                    </form>
                                 ) : (cell)
                                 }
                             </td>
@@ -94,7 +119,7 @@ const SupplierForm = () => {
         
     );
 }
-
+//<Form> only allows GET & POST
 const EmployeeForm = () => {
     return (
         <div>

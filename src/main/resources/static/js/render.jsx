@@ -16,6 +16,27 @@ getElementById('tab-stock');
 var tabEmployee = document.
 getElementById('tab-employee');
 
+function getCookie(name) {
+    const cookieString = document.cookie;
+    //console.log(cookieString);
+    const cookies = cookieString.split('; ');
+
+    for (const cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+            return cookieValue;
+        }
+    }
+}
+
+const deletedSupplier = getCookie('removed');
+if (deletedSupplier === 'true') {
+    ReactDOM.render(<SupplierForm />, overview_x);
+    document.cookie = 'removed=false; path=/restricted; max-age=3600';
+} else {
+    console.log('hola');
+};
+
 tabSupplier.addEventListener('click', () => {
     ReactDOM.render(<SupplierForm />, overview_x);
 });
