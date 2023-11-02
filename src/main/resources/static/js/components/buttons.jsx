@@ -1,10 +1,23 @@
 
-const buttonLogout = () => {
+const ButtonAddNew = () => {
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleButtonClick = () => {
+        setShowModal(true);
+    }
+
     return (
-        <div class="position-absolute top-0 end-0 shadow-lg p-3 mb-5 bg-body rounded">
-            <form action="/restricted/control-panel/logout" method="POST">
-                <button type="submit" class="btn btn-danger">Log Out</button>
-            </form>
-        </div>
+        <>
+            <button 
+            type="button" 
+            data-bs-toggle="modal" 
+            data-bs-target="#staticBackdrop" 
+            className="btn btn-success"
+            onClick={handleButtonClick}>
+            +
+            </button>
+            {showModal && <ModalAddNew setShowModal={setShowModal} />}
+        </>
     );
 }

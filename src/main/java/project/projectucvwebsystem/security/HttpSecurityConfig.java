@@ -57,6 +57,9 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.GET, "/static/js/graphic.jsx").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/js/render.jsx").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/form.jsx").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/buttons.jsx").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/modal.jsx").permitAll();
+            authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/input.jsx").permitAll();
             
             authConfig.requestMatchers(HttpMethod.GET, "/global/welcome").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/restricted/login-view").permitAll();
@@ -73,6 +76,9 @@ public class HttpSecurityConfig {
             );
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-supplier").hasAuthority(
                 Permission.MODIFY_SUPPLIER.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-supplier").hasAuthority(
+                Permission.DELETE_SUPPLIER.name()
             );
 
             authConfig.requestMatchers("/error").permitAll();

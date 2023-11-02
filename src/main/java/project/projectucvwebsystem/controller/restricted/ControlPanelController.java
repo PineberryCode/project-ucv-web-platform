@@ -151,4 +151,15 @@ public class ControlPanelController {
         return "redirect:/restricted/control-panel";
     }
 
+    @PostMapping("control-panel/register-supplier")
+    public String RegisterSupplier (
+        @RequestParam("name") String name,
+        @RequestParam("cel") String cel,
+        @RequestParam("email") String email,
+        @RequestParam("address") String address
+    ) {
+        supplierService.CreateANewSupplier(name, cel, email, address);
+        return "redirect:/restricted/control-panel";
+    }
+
 }
