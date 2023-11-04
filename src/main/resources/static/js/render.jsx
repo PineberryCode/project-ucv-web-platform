@@ -31,14 +31,14 @@ function getCookie(name) {
 
 const deletedSupplier = getCookie('removed');
 if (deletedSupplier === 'true') {
-    ReactDOM.render(<SupplierForm />, overview_x);
+    ReactDOM.render(<SupplierContent />, overview_x);
     document.cookie = 'removed=false; path=/restricted; max-age=3600';
 } else {
     console.log('hola');
 };
 
 tabSupplier.addEventListener('click', () => {
-    ReactDOM.render(<SupplierForm />, overview_x);
+    ReactDOM.render(<SupplierContent />, overview_x);
 });
 
 tabSales.addEventListener('click', () => {
@@ -54,5 +54,5 @@ tabStock.addEventListener('click', () => {
 });
 
 tabEmployee.addEventListener('click', () => {
-    ReactDOM.render(<EmployeeForm />, overview_x);
+    ReactDOM.render(<EmployeeContent />, overview_x);
 });

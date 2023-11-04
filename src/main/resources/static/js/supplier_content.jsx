@@ -16,7 +16,7 @@ for (let x of supplierRow) {
 
 var sliceSupplierData = supplierData.slice(1,supplierData.length);
 
-const SupplierForm = () => {
+const SupplierContent = () => {
     const [editMode, setEditMode] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [supplierData, setSupplierData] = useState(sliceSupplierData);
@@ -118,43 +118,6 @@ const SupplierForm = () => {
             </tbody>
             </table>
             
-        </div>
-        
-    );
-}
-//<Form> only allows GET & POST
-const EmployeeForm = () => {
-    return (
-        <div>
-            <h4 className="p-5">Empleados</h4>
-            <table className="table table-hover">
-            <thead className="table-bordered border-primary text-center">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Rol</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Names</th>
-                    <th scope="col">Lastname</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <form className="text-center" action="/restricted/control-panel/delete" method="POST">
-                            <button className="btn btn-danger" type="submit">X</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
         </div>
         
     );

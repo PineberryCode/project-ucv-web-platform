@@ -1,5 +1,5 @@
 
-const ModalAddNew = ({setShowModal}) => {
+const FormAddNew = ({setShowModal}) => {
     console.log('Renderizando');
     const closeModal = () => {
         setShowModal(false);

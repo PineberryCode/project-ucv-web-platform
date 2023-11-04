@@ -17,7 +17,7 @@ const ButtonAddNew = () => {
             onClick={handleButtonClick}>
             +
             </button>
-            {showModal && <ModalAddNew setShowModal={setShowModal} />}
+            {showModal && <FormAddNew setShowModal={setShowModal} />}
         </>
     );
 }
