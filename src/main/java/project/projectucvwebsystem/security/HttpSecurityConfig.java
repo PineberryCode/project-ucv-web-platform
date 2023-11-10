@@ -81,6 +81,15 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-supplier").hasAuthority(
                 Permission.DELETE_SUPPLIER.name()
             );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/delete-employee").hasAuthority(
+                Permission.DELETE_EMPLOYEE.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-employee").hasAuthority(
+                Permission.MODIFY_EMPLOYEE.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-employee").hasAuthority(
+                Permission.REGISTER_EMPLOYEE.name()
+            );
 
             authConfig.requestMatchers("/error").permitAll();
             authConfig.anyRequest().denyAll();

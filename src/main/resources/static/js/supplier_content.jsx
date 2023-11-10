@@ -34,23 +34,21 @@ const SupplierContent = () => {
     const handleInputChange = (e, rowIndex, columnIndex) => {
         const updatedData = [...supplierData];
         updatedData[rowIndex][columnIndex] = e.target.value;
-        //var value = document.getElementById(columnIndex+""+rowIndex).textContent;
-        document.cookie =`extractedValue=${e.target.value}; path=/restricted; max-age=3600;`;
-        //console.log("Row:"+rowIndex+" Column: "+columnIndex+": "+e.target.value);
+        
+        document.cookie=`extractedValueSupplier=${encodeURIComponent(e.target.value)}; path=/restricted; max-age=3600;`;
         setSupplierData(updatedData);
-        document.cookie=`extractedColumn=${columnIndex}; path=/restricted; max-age=3600;`;
+        document.cookie=`extractedColumnSupplier=${columnIndex}; path=/restricted; max-age=3600;`;
         
     }
 
-    const handleInputKeyDown = (e, rowIndex, columnIndex) => {
+    const handleInputKeyDown = (e) => {
         if (e.key === 'Enter') {
             setEditMode(null);
             setIsEditing(false);
         }
-        
     }
 
-    const handleInputKeyUp = (e, rowIndex, columnIndex) => {
+    const handleInputKeyUp = (e) => {
         if (e.key === 'Enter') {
             setEditMode(null);
             
@@ -60,7 +58,7 @@ const SupplierContent = () => {
     }
     
     return (
-        <div>
+        <>
             <h4 className="p-5">Proveedores</h4>
             <table className="table table-hover">
             <thead className="table-bordered border-primary text-center">
@@ -84,7 +82,6 @@ const SupplierContent = () => {
                             onDoubleClick={() => handleDoubleClick(rowIndex, columnIndex)}
                             id={`${columnIndex}${rowIndex}`}
                             >
-                                
                                 {editMode && editMode.row === rowIndex && editMode.col === columnIndex ? 
                                 (
                                     <form action="/restricted/control-panel/update-supplier" method="POST">
@@ -93,10 +90,10 @@ const SupplierContent = () => {
                                     type="text" 
                                     value={cell} 
                                     onChange={(e) => handleInputChange(e,rowIndex,columnIndex)}
-                                    onKeyDown={handleInputKeyDown(rowIndex, columnIndex)}
-                                    onKeyUp={handleInputKeyUp(rowIndex, columnIndex)}
+                                    onKeyDown={handleInputKeyDown}
+                                    onKeyUp={handleInputKeyUp}
                                     />
-                                    <input type="hidden" name="supplierID" value={supplier[0]}/>
+                                    <input type="hidden" name="supplierID" value={supplier[0]} />
                                     </form>
                                 ) : (cell)
                                 }
@@ -104,7 +101,7 @@ const SupplierContent = () => {
                         ))}
                         <td>
                         <form action="/restricted/control-panel/delete-supplier" method="POST">
-                            <input type="hidden" name="supplierID" value={supplier[0]}/>
+                            <input type="hidden" name="supplierID" value={supplier[0]} />
                             <button className="delete btn btn-danger" type="submit">X</button>
                         </form>
                         </td>
@@ -112,13 +109,12 @@ const SupplierContent = () => {
                 ))}
                 <tr className="text-center">
                     <td>
-                        <ButtonAddNew />
+                        <ButtonAddNewSupplier />
                     </td>
                 </tr>
             </tbody>
-            </table>
-            
-        </div>
+            </table>  
+        </>
         
     );
 }

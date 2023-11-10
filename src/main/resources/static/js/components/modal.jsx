@@ -1,32 +1,141 @@
 
-const FormAddNew = ({setShowModal}) => {
-    console.log('Renderizando');
-    const closeModal = () => {
-        setShowModal(false);
-    }
+const FormAddNewSupplier = ({setShowModal}) => {
+  
+  const closeModal = () => {setShowModal(false);}
 
-    return (
-        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="staticBackdropLabel">Nuevo Proveedor</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/restricted/control-panel/register-supplier" method="POST">
-                <div className="modal-body">
-                  <Input name="name" type="text" className="form-control" placeholder="Nombre" />
-                  <Input name="cel" type="text" className="form-control" placeholder="Número" />
-                  <Input name="email" type="email" className="form-control" placeholder="E-mail" />
-                  <Input name="address" type="text" className="form-control" placeholder="Dirección/Localidad" />
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
-                  <button type="submit" className="btn btn-primary">Registrar</button>
-                </div>
-            </form>
+  return (
+    <div className="modal fade" id="staticBackdropSupplier" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="staticBackdropLabel">Nuevo Proveedor</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <form action="/restricted/control-panel/register-supplier" method="POST">
+              <div className="modal-body">
+                <Input name="name" type="text" className="form-control" placeholder="Nombre" />
+                <Input name="cel" type="text" className="form-control" placeholder="Número" />
+                <Input name="email" type="text" className="form-control" placeholder="E-mail" />
+                <Input name="address" type="text" className="form-control" placeholder="Dirección/Localidad" />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
+                <button type="submit" className="btn btn-primary">Registrar</button>
+              </div>
+          </form>
         </div>
+      </div>
+    </div>
+  );
+}
+
+const FormAddNewProduct = ({setShowModal}) => {
+  
+  const closeModal = () => {setShowModal(false);}
+
+  return (
+    <div className="modal fade" id="staticBackdropProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="/restricted/control-panel/register-product" method="POST">
+              <div className="modal-body">
+                <select className="form-select" aria-label="">
+                  <option selected>Selecciona una categoría</option>
+                  <option value="Porcelanato">Porcelanato</option>
+                  <option value="Inodoro">Inodoro</option>
+                  <option value="Lavadero">Lavadero</option>
+                  <option value="Accesorios">Accesorios</option>
+                </select>
+                <Input name="name" type="text" className="form-control" placeholder="Nombre-Producto" />
+                <Input name="quantity" type="number" className="form-control" placeholder="Cantidad" />
+                <Input name="unit-price" type="number" className="form-control" placeholder="Precio Unitario" />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
+                <button type="submit" className="btn btn-primary">Registrar</button>
+              </div>
+          </form>
         </div>
-    );
+      </div>
+    </div>
+  );
+}
+
+const FormAddNewEmployee = ({setShowModal}) => {
+  
+  const closeModal = () => {setShowModal(false);}
+
+  return (
+    <div
+    className="modal fade" 
+    id="staticBackdropEmployee" 
+    data-bs-backdrop="static" 
+    data-bs-keyboard="false" 
+    tabIndex="-1" 
+    aria-labelledby="staticBackdropLabel" 
+    aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="staticBackdropLabel">Nuevo Empleado</h5>
+            <button 
+            type="button" 
+            className="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close">
+            </button>
+          </div>
+          <form action="/restricted/control-panel/register-employee" method="POST">
+              <div className="modal-body">
+                <div 
+                class="accordion shadow p-2 mb-4 bg-body rounded" 
+                id="accordionUser"
+                >
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button 
+                    class="accordion-button" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#collapseOne" 
+                    aria-expanded="true" 
+                    aria-controls="collapseOne">
+                      Usuario
+                    </button>
+                  </h2>
+                  <div 
+                  id="collapseOne" 
+                  class="accordion-collapse collapse" 
+                  aria-labelledby="headingOne" 
+                  data-bs-parent="#accordionUser">
+                    <div class="accordion-body">
+                      <select className="form-select mb-3" aria-label="Default Select Value">
+                        <option selected>Selecciona un Rol</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="WAREHOUSE_MANAGE">Encargado de Almacén</option>
+                        <option value="VENDEDOR">Área de Ventas</option>
+                      </select>
+                      <Input name="password" type="password" className="form-control" placeholder="Password" />
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <Input name="email" type="text" className="form-control" placeholder="E-mail" />
+                <Input name="name" type="text" className="form-control" placeholder="Nombres" />
+                <Input name="lastname" type="text" className="form-control" placeholder="Apellidos" />
+                <Input name="address" type="text" className="form-control" placeholder="Dirección/Localidad" />
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
+                <button type="submit" className="btn btn-primary">Registrar</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }

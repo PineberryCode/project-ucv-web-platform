@@ -8,5 +8,8 @@ public enum Permission {
     MODIFY_SALE, //Add attribute like a invalid - valid (boolean) //Admin
     REGISTER_SUPPLIER,
     MODIFY_SUPPLIER,
-    DELETE_SUPPLIER
+    DELETE_SUPPLIER,
+    REGISTER_EMPLOYEE,
+    MODIFY_EMPLOYEE,
+    DELETE_EMPLOYEE
 }

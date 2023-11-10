@@ -46,9 +46,6 @@ tabSales.addEventListener('click', () => {
 });
 
 tabStock.addEventListener('click', () => {
-    /*ReactDOM.render( ()=> {
-
-    })*/
     google.charts.load('current', {'packages':['corechart','bar']});
     google.charts.setOnLoadCallback(drawStockBarChart);
 });

@@ -20,6 +20,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import project.projectucvwebsystem.Routes.Render;
+import project.projectucvwebsystem.service.EmployeeService;
 import project.projectucvwebsystem.service.ProductService;
 import project.projectucvwebsystem.service.SupplierService;
 
@@ -32,6 +33,9 @@ public class ControlPanelController {
 
     @Autowired
     SupplierService supplierService;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @Autowired
     HttpServletRequest request;
@@ -68,6 +72,13 @@ public class ControlPanelController {
         .collect(Collectors.joining(","));
         model.addAttribute("ObjectNameLargeAndQuantities", joinedString);
         //model.addAttribute("variable", userService.QuantityUsers());
+        
+        List<Object[]> listEmployeeData = employeeService.fillEmployeeRow();
+        String joinedListEmployee = listEmployeeData.stream()
+        .map(row -> row[0]+"-"+row[1]+"-"+row[2]+"-"+row[3]+"-"+row[4]+"-"+row[5])
+        .collect(Collectors.joining(","));
+        model.addAttribute("ListEmployeeTable", joinedListEmployee);
+
         return Render.CONTROL_PANEL.name();
     }
 
@@ -104,7 +115,6 @@ public class ControlPanelController {
 
     @PostMapping("/control-panel/update-supplier") //@PutMapping | @PatchMapping
     public String UpdateSupplier (
-        /*@RequestParam("input") String value,*/ //ID input create dinamically. Then with .jsx send the value in a cookie
         @RequestParam("supplierID") int ID
     ) throws InterruptedException {
 
@@ -113,23 +123,25 @@ public class ControlPanelController {
         String extractedValue = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("extractedColumn".equals(cookie.getName())) {
+                if ("extractedColumnSupplier".equals(cookie.getName())) {
                     extractedColumn = cookie.getValue();
                     break;
                 }
             }
             for (Cookie cookie : cookies) {
-                if ("extractedValue".equals(cookie.getName())) {
+                if ("extractedValueSupplier".equals(cookie.getName())) {
                     extractedValue = cookie.getValue();
+
+                    extractedValue = extractedValue.contains("%20") 
+                    ? extractedValue.replace("%20", " ") 
+                    : extractedValue;
+
                     break;
                 }
             }
         }
 
-        //idValue.substring(1) idValue = input-columnIndex
-        System.out.println("Column: "+extractedColumn);
-        System.out.println("Value: "+extractedValue);
-        
+        //System.out.println("IDDDD: "+ID);
         switch(extractedColumn) {
             case "1" -> { //Case = {num of column}
                 supplierService.UpdateSupplierDescriptionName(extractedValue, ID);
@@ -145,9 +157,6 @@ public class ControlPanelController {
             }
         }
 
-        //supplierService.UpdateSupplierNumber(attibute, ID);
-        //Thread.sleep(3000);
-
         return "redirect:/restricted/control-panel";
     }
 
@@ -159,6 +168,20 @@ public class ControlPanelController {
         @RequestParam("address") String address
     ) {
         supplierService.CreateANewSupplier(name, cel, email, address);
+        return "redirect:/restricted/control-panel";
+    }
+
+    /*
+     * Employee
+     */
+    @PostMapping("control-panel/register-employee")
+    public String RegisterEmployee (
+        @RequestParam("role") int idRole,
+        @RequestParam("email") String email,
+        @RequestParam("name") String name,
+        @RequestParam("lastname") String lastname,
+        @RequestParam("address") String address
+    ) {
         return "redirect:/restricted/control-panel";
     }
 
