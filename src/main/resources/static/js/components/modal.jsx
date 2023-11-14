@@ -113,12 +113,13 @@ const FormAddNewEmployee = ({setShowModal}) => {
                   aria-labelledby="headingOne" 
                   data-bs-parent="#accordionUser">
                     <div class="accordion-body">
-                      <select className="form-select mb-3" aria-label="Default Select Value">
+                      <select name="roles" className="form-select mb-3" aria-label="Default Select Value">
                         <option selected>Selecciona un Rol</option>
                         <option value="ADMIN">ADMIN</option>
                         <option value="WAREHOUSE_MANAGE">Encargado de Almacén</option>
                         <option value="VENDEDOR">Área de Ventas</option>
                       </select>
+                      <Input name="username" type="text" className="form-control" placeholder="Username" />
                       <Input name="password" type="password" className="form-control" placeholder="Password" />
                     </div>
                   </div>

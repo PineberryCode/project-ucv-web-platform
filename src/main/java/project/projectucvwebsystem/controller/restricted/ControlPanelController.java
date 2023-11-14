@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +24,15 @@ import project.projectucvwebsystem.Routes.Render;
 import project.projectucvwebsystem.service.EmployeeService;
 import project.projectucvwebsystem.service.ProductService;
 import project.projectucvwebsystem.service.SupplierService;
+import project.projectucvwebsystem.service.UserService;
 
 @Controller
 @RequestMapping("/restricted")
 public class ControlPanelController {
 
+    @Autowired
+    UserService userService;
+    
     @Autowired
     ProductService productService;
 
@@ -99,17 +104,18 @@ public class ControlPanelController {
         return "redirect:/restricted/login-view";
     }
 
-    @PostMapping("/control-panel/delete-supplier") //@DeleteMapping
-    public String DeleteSupplier (
-        @RequestParam("supplierID") int ID
+    /*
+     * Supplier
+     */
+
+    @PostMapping("control-panel/register-supplier")
+    public String RegisterSupplier (
+        @RequestParam("name") String name,
+        @RequestParam("cel") String cel,
+        @RequestParam("email") String email,
+        @RequestParam("address") String address
     ) {
-        Cookie cookie = new Cookie("removed", "true");
-        cookie.setMaxAge(60*60);
-        cookie.setPath("/restricted");
-        response.addCookie(cookie);
-
-        supplierService.DeleteOnlySupplier(ID);
-
+        supplierService.CreateANewSupplier(name, cel, email, address);
         return "redirect:/restricted/control-panel";
     }
 
@@ -160,28 +166,54 @@ public class ControlPanelController {
         return "redirect:/restricted/control-panel";
     }
 
-    @PostMapping("control-panel/register-supplier")
-    public String RegisterSupplier (
-        @RequestParam("name") String name,
-        @RequestParam("cel") String cel,
-        @RequestParam("email") String email,
-        @RequestParam("address") String address
+    @PostMapping("/control-panel/delete-supplier") //@DeleteMapping
+    public String DeleteSupplier (
+        @RequestParam("supplierID") int ID
     ) {
-        supplierService.CreateANewSupplier(name, cel, email, address);
+        Cookie cookie = new Cookie("removed", "true");
+        cookie.setMaxAge(60*60);
+        cookie.setPath("/restricted");
+        response.addCookie(cookie);
+
+        supplierService.DeleteOnlySupplier(ID);
+
         return "redirect:/restricted/control-panel";
     }
 
     /*
      * Employee
      */
+
     @PostMapping("control-panel/register-employee")
     public String RegisterEmployee (
-        @RequestParam("role") int idRole,
         @RequestParam("email") String email,
         @RequestParam("name") String name,
         @RequestParam("lastname") String lastname,
-        @RequestParam("address") String address
+        @RequestParam("address") String address,
+        @RequestParam("username") String username,
+        @RequestParam("roles") String role,
+        @RequestParam("password") String password
+    ) throws InterruptedException {
+
+        userService.InsertANewUser(username, password, role);
+        int idUser = userService.FindIDByUsername(username);
+        Thread.sleep(500);
+        
+        employeeService.InsertNewEmployee(idUser, email, name, lastname, address);
+        
+        return "redirect:/restricted/control-panel";
+    }
+
+    @PostMapping("control-panel/delete-employee")
+    public String DeleteEmployee (
+        @RequestParam("employeeID") int ID
     ) {
+
+        int idEmployeeStored = userService.CatchIDEmployee(ID);
+
+        employeeService.RemoveEmployee(ID);
+        userService.RemoveUser(idEmployeeStored);
+        
         return "redirect:/restricted/control-panel";
     }
 

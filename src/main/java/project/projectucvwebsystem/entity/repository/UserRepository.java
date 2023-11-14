@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import project.projectucvwebsystem.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    
     Optional<User> findByUsername (String username);
     
     @Query(value = "SELECT COUNT(*) FROM USER_TABLE", nativeQuery = true)
@@ -19,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Transactional
     @Query(
-        value = "INSERT INTO USER_TABLE "+
+        value = "INSERT INTO USER_TABLE (USERNAME, PASSWORD, USER_ROLE) "+
         "VALUES (:USERNAME, :PASSWORD, :USER_ROLE)",
         nativeQuery = true
     )
@@ -28,4 +29,29 @@ public interface UserRepository extends JpaRepository<User, Long> {
         @Param("PASSWORD") String password,
         @Param("USER_ROLE") String role
     );
+
+    @Modifying
+    @Transactional
+    @Query(
+        value = "DELETE FROM USER_TABLE "+
+        "WHERE ID_USER = :ID",
+        nativeQuery = true
+    )
+    public void RemoveUser (int ID);
+
+    @Query (
+        value = "SELECT ID_USER "+
+        "FROM EMPLOYEE "+
+        "WHERE ID_EMPLOYEE = :ID",
+        nativeQuery = true
+    )
+    public int BeforeRemoveUser (@Param("ID") int idEmployee);
+
+    @Query(
+        value = "SELECT ID_USER "+
+        "FROM USER_TABLE "+
+        "WHERE USERNAME = :USERNAME",
+        nativeQuery = true
+    )
+    public int FindIDByUsernameString(@Param("USERNAME") String username);
 }

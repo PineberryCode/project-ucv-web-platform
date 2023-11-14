@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -17,16 +18,18 @@ public class UserService { //Query by property //WARNING
     @Autowired
     private final UserRepository userRepository;
 
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
+
     //@Autowired
-    /*public UserService(UserRepository userRepository) {
+    /*public UserService (UserRepository userRepository) {
         this.userRepository = userRepository;
     }*/
-
+    
     public Optional<User> obteinUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    //@Query("SELECT COUNT(*) FROM USER_TABLE, nativeQuery=true")
     public int QuantityUsers () {
         return userRepository.countUsers();
     }
@@ -36,7 +39,21 @@ public class UserService { //Query by property //WARNING
         String password,
         String role
     ) {
-        userRepository.InsertANewUser(username, password, role);
+        String passwordEncoded = passwordEncoder.encode(password);
+        userRepository.InsertANewUser(username, passwordEncoded, role);
+    }
+
+    public int FindIDByUsername (String username ) {
+        return userRepository.FindIDByUsernameString(username);
+    }
+
+    public int CatchIDEmployee (int ID) {
+        return userRepository.BeforeRemoveUser(ID);
+    }
+
+    public void RemoveUser (int ID) {
+        //int idUser = CatchIDEmployee(ID);
+        userRepository.RemoveUser(ID);
     }
 
 }

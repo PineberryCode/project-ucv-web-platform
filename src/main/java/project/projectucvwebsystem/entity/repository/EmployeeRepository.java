@@ -21,8 +21,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM EMPLOYEE WHERE ID_SUPPLIER = :ID", nativeQuery = true)
-    public void DeleteOnlyEmployee (@Param("ID") int ID);
+    @Query(value = "DELETE FROM EMPLOYEE WHERE ID_EMPLOYEE = :ID", nativeQuery = true)
+    public void DeleteEmployee (@Param("ID") int ID);
 
     @Modifying
     @Transactional
@@ -32,7 +32,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
         nativeQuery = true
     )
     public void CreateANewEmployee (
-        @Param("ID_USER") int ID,
+        @Param("ID_USER") int idUser,
         @Param("EMAIL") String email,
         @Param("NAMES") String names,
         @Param("LASTNAME") String lastname,

@@ -28,8 +28,8 @@ import project.projectucvwebsystem.util.Role;
 public class User implements UserDetails { //User == Employee
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_USER")
+    /*@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USER")*/
     private Long id_user;
     private String username;
     private String password;

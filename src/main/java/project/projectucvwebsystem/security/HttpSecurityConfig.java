@@ -49,18 +49,7 @@ public class HttpSecurityConfig {
              */
             authConfig.requestMatchers(HttpMethod.GET, "/static/bootstrap.min.css").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/css/id.css").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/request.js").permitAll(); //remove this
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/tab.jsx").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/graphic.jsx").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/highcharts.js").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/jquery.js").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/graphic.jsx").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/render.jsx").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/supplier_content.jsx").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/static/js/**").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/buttons.jsx").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/modal.jsx").permitAll();
-            //authConfig.requestMatchers(HttpMethod.GET, "/static/js/components/input.jsx").permitAll();
             
             authConfig.requestMatchers(HttpMethod.GET, "/global/welcome").permitAll();
             authConfig.requestMatchers(HttpMethod.GET, "/restricted/login-view").permitAll();

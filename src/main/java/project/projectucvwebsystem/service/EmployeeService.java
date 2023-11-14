@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import project.projectucvwebsystem.entity.repository.EmployeeRepository;
+import project.projectucvwebsystem.entity.repository.UserRepository;
 
 @Service
 @AllArgsConstructor
@@ -15,10 +16,12 @@ public class EmployeeService {
     @Autowired
     private final EmployeeRepository employeeRepository;
 
-    //UserService
-
     public List<Object[]> fillEmployeeRow () {return employeeRepository.fillEmployeeRow();}
     
+    public void RemoveEmployee (int ID) {
+        employeeRepository.DeleteEmployee(ID);
+    }
+
     public void InsertNewEmployee (
         int idUser,
         String email,
