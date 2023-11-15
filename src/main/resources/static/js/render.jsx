@@ -1,8 +1,9 @@
 //import { drawStockBarChart } from "./graphic.jsx";
 //import { SupplierForm } from "./components/form.jsx";
 
-var overview_x = document.
-getElementById('overview-x');
+const root = ReactDOM.createRoot(
+    document.getElementById('root')
+);
 
 var tabSupplier = document.
 getElementById('tab-supplier');
@@ -15,6 +16,8 @@ getElementById('tab-stock');
 
 var tabEmployee = document.
 getElementById('tab-employee');
+
+
 
 function getCookie(name) {
     const cookieString = document.cookie;
@@ -31,18 +34,18 @@ function getCookie(name) {
 
 const deletedSupplier = getCookie('removed');
 if (deletedSupplier === 'true') {
-    ReactDOM.render(<SupplierContent />, overview_x);
+    root.render(<SupplierContent />);
     document.cookie = 'removed=false; path=/restricted; max-age=3600';
 } else {
     console.log('hola');
 };
 
 tabSupplier.addEventListener('click', () => {
-    ReactDOM.render(<SupplierContent />, overview_x);
+    root.render(<SupplierContent />);
 });
 
 tabSales.addEventListener('click', () => {
-    console.log('UnexpectedError... Sales')
+    root.render(<SalesContent />);
 });
 
 tabStock.addEventListener('click', () => {
@@ -51,5 +54,5 @@ tabStock.addEventListener('click', () => {
 });
 
 tabEmployee.addEventListener('click', () => {
-    ReactDOM.render(<EmployeeContent />, overview_x);
+    root.render(<EmployeeContent />);
 });
