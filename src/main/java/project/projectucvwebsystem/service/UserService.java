@@ -42,13 +42,20 @@ public class UserService { //Query by property //WARNING
         return userRepository.FindIDByUsernameString(username);
     }
 
-    public int CatchIDEmployee (int ID) {
+    /*public int CatchIDEmployee (int ID) {
         return userRepository.BeforeRemoveUser(ID);
-    }
+    }*/
 
     public void RemoveUser (int ID) {
         //int idUser = CatchIDEmployee(ID);
         userRepository.RemoveUser(ID);
+    }
+
+    public void UpdateUserRole (
+        String role,
+        int ID
+    ) {
+        userRepository.UpdateUserRole(role, ID);
     }
 
 }

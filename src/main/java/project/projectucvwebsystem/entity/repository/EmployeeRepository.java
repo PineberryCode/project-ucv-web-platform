@@ -39,10 +39,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
         @Param("ADDRESS") String address
     );
 
-    @Modifying
+    /*@Modifying
     @Transactional
     @Query(
-        value = "UPDATE EMPLOYEE "+
+        value = "UPDATE USER_TABLE "+
         "SET USER_ROLE = :USER_ROLE "+
         "WHERE ID_EMPLOYEE = :ID",
         nativeQuery = true
@@ -50,7 +50,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     public void UpdateEmployeeRole (
         @Param("USER_ROLE") String role,
         @Param("ID") int ID
-    );
+    );*/
 
     @Modifying
     @Transactional
@@ -103,4 +103,12 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
         @Param("ADDRESS") String address,
         @Param("ID") int ID
     );
+
+    @Query (
+        value = "SELECT ID_USER "+
+        "FROM EMPLOYEE "+
+        "WHERE ID_EMPLOYEE = :ID",
+        nativeQuery = true
+    )
+    public int BeforeRemoveUser (@Param("ID") int idEmployee);
 }

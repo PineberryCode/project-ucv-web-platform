@@ -33,13 +33,14 @@ public class EmployeeService {
         .CreateANewEmployee(idUser, email, names, lastname, address);
     }
 
-    public void UpdateEmployeeRole (
+    /*public void UpdateEmployeeRole (
         String role,
         int ID
     ) {
-        employeeRepository
+        /*employeeRepository
         .UpdateEmployeeRole(role, ID);
-    }
+       
+    }*/
 
     public void UpdateEmployeeEmail (
         String email,
@@ -71,5 +72,9 @@ public class EmployeeService {
     ) {
         employeeRepository
         .UpdateEmployeeAddress(address, ID);
+    }
+
+    public int CatchIDEmployee (int ID) {
+        return employeeRepository.BeforeRemoveUser(ID);
     }
 }

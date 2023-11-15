@@ -220,7 +220,6 @@ public class ControlPanelController {
         for (Cookie cookie : cookies) {
             if ("extractedColumnEmployee".equals(cookie.getName())) {
                 extractedColumn = cookie.getValue();
-                //System.out.println(extractedValue);
                 break;
             }
         }
@@ -243,7 +242,8 @@ public class ControlPanelController {
 
         switch (extractedColumn) {
             case "1" -> {
-                employeeService.UpdateEmployeeRole(extractedValue, ID); //Improve it
+                int idUser = employeeService.CatchIDEmployee(ID);
+                userService.UpdateUserRole(extractedValue, idUser);
             }
             case "2" -> {
                 employeeService.UpdateEmployeeEmail(extractedValue, ID);
@@ -267,7 +267,7 @@ public class ControlPanelController {
         @RequestParam("employeeID") int ID
     ) {
 
-        int idEmployeeStored = userService.CatchIDEmployee(ID);
+        int idEmployeeStored = employeeService.CatchIDEmployee(ID);
 
         employeeService.RemoveEmployee(ID);
         userService.RemoveUser(idEmployeeStored);

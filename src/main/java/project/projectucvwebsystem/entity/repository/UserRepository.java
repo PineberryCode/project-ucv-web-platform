@@ -39,14 +39,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     )
     public void RemoveUser (int ID);
 
-    @Query (
-        value = "SELECT ID_USER "+
-        "FROM EMPLOYEE "+
-        "WHERE ID_EMPLOYEE = :ID",
-        nativeQuery = true
-    )
-    public int BeforeRemoveUser (@Param("ID") int idEmployee);
-
     @Query(
         value = "SELECT ID_USER "+
         "FROM USER_TABLE "+
@@ -54,4 +46,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
         nativeQuery = true
     )
     public int FindIDByUsernameString(@Param("USERNAME") String username);
+
+    @Modifying
+    @Transactional
+    @Query (
+        value = "UPDATE USER_TABLE "+
+        "SET USER_ROLE = :USER_ROLE "+
+        "WHERE ID_USER = :ID",
+        nativeQuery = true
+    )
+    public void UpdateUserRole (
+        @Param("USER_ROLE") String role,
+        @Param("ID") int ID
+    );
 }
