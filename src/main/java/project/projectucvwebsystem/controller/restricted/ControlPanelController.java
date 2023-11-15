@@ -142,6 +142,10 @@ public class ControlPanelController {
                     ? extractedValue.replace("%20", " ") 
                     : extractedValue;
 
+                    extractedValue = extractedValue.contains("%40")
+                    ? extractedValue.replace("%40", "@")
+                    : extractedValue;
+
                     break;
                 }
             }
@@ -201,6 +205,60 @@ public class ControlPanelController {
         
         employeeService.InsertNewEmployee(idUser, email, name, lastname, address);
         
+        return "redirect:/restricted/control-panel";
+    }
+
+    @PostMapping("control-panel/update-employee")
+    public String UpdateEmployee (
+        @RequestParam("employeeID") int ID
+    ) throws InterruptedException {
+
+        Cookie[] cookies = request.getCookies();
+        String extractedColumn = null;
+        String extractedValue = null;
+
+        for (Cookie cookie : cookies) {
+            if ("extractedColumnEmployee".equals(cookie.getName())) {
+                extractedColumn = cookie.getValue();
+                //System.out.println(extractedValue);
+                break;
+            }
+        }
+
+        for (Cookie cookie : cookies) {
+            if ("extractedValueEmployee".equals(cookie.getName())) {
+                extractedValue = cookie.getValue();
+
+                extractedValue = extractedValue.contains("%20")
+                ? extractedValue.replace("%20", " ")
+                : extractedValue;
+
+                extractedValue = extractedValue.contains("%40")
+                ? extractedValue.replace("%40", "@")
+                : extractedValue;
+
+                break;
+            }
+        }
+
+        switch (extractedColumn) {
+            case "1" -> {
+                employeeService.UpdateEmployeeRole(extractedValue, ID); //Improve it
+            }
+            case "2" -> {
+                employeeService.UpdateEmployeeEmail(extractedValue, ID);
+            }
+            case "3" -> {
+                employeeService.UpdateEmployeeNames(extractedValue, ID);
+            }
+            case "4" -> {
+                employeeService.UpdateEmployeeLastname(extractedValue, ID);
+            }
+            case "5" -> {
+                employeeService.UpdateEmployeeAddress(extractedValue, ID);
+            }
+        }
+
         return "redirect:/restricted/control-panel";
     }
 

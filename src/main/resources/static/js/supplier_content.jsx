@@ -35,25 +35,24 @@ const SupplierContent = () => {
         const updatedData = [...supplierData];
         updatedData[rowIndex][columnIndex] = e.target.value;
         
-        document.cookie=`extractedValueSupplier=${encodeURIComponent(e.target.value)}; path=/restricted; max-age=3600;`;
+        document.cookie=`extractedValueSupplier=${encodeURIComponent(e.target.value)}; path=/restricted; max-age=3600; samesite=None; secure;`;
         setSupplierData(updatedData);
-        document.cookie=`extractedColumnSupplier=${columnIndex}; path=/restricted; max-age=3600;`;
+        document.cookie=`extractedColumnSupplier=${columnIndex}; path=/restricted; max-age=3600; samesite=None; secure;`;
         
     }
 
     const handleInputKeyDown = (e) => {
         if (e.key === 'Enter') {
             setEditMode(null);
-            setIsEditing(false);
+            //setIsEditing(false);
+            document.getElementById("form-update-supplier").submit();
         }
     }
 
     const handleInputKeyUp = (e) => {
         if (e.key === 'Enter') {
             setEditMode(null);
-            
             setIsEditing(false);
-            
         }
     }
     
@@ -84,7 +83,11 @@ const SupplierContent = () => {
                             >
                                 {editMode && editMode.row === rowIndex && editMode.col === columnIndex ? 
                                 (
-                                    <form action="/restricted/control-panel/update-supplier" method="POST">
+                                    <form 
+                                    id="form-update-supplier" 
+                                    action="/restricted/control-panel/update-supplier" 
+                                    method="POST"
+                                    >
                                     <input
                                     className="form-control" 
                                     type="text" 

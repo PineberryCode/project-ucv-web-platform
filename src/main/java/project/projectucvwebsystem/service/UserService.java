@@ -20,11 +20,6 @@ public class UserService { //Query by property //WARNING
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
-
-    //@Autowired
-    /*public UserService (UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }*/
     
     public Optional<User> obteinUserByUsername(String username) {
         return userRepository.findByUsername(username);

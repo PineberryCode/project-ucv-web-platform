@@ -34,17 +34,18 @@ const EmployeeContent = () => {
         const updatedData = [...employeeData];
         updatedData[rowIndex][columnIndex] = e.target.value;
 
-        document.cookie=`extractedValueEmployee=${encodeURIComponent(e.target.value)}; path=/restricted; max-age=3600;`;
+        document.cookie=`extractedValueEmployee=${encodeURIComponent(e.target.value)}; path=/restricted; max-age=3600; samesite=None; secure;`;
         setEmployeeData(updatedData);
 
-        document.cookie=`extractedColumnEmployee=${columnIndex}; path=/restricted; max-age=3600;`;
+        document.cookie=`extractedColumnEmployee=${columnIndex}; path=/restricted; max-age=3600; samesite=None; secure;`;
         
     }
 
     const handleInputKeyDown = (e) => {
         if (e.key === 'Enter') {
             setEditMode(null);
-            setIsEditing(false);
+            //setIsEditing(false);
+            document.getElementById("form-update-employee").submit();
         }
     }
 
@@ -83,7 +84,10 @@ const EmployeeContent = () => {
                     >
                       {editMode && editMode.row === rowIndex && editMode.col === columnIndex ?
                       (
-                        <form action="/restricted/control-panel/update-employee" method="POST">
+                        <form
+                        id="form-update-employee" 
+                        action="/restricted/control-panel/update-employee" 
+                        method="POST">
                             <input 
                             className="form-control"
                             type="text"
