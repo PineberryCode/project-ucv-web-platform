@@ -1,4 +1,4 @@
-package project.projectucvwebsystem.Routes;
+package project.projectucvwebsystem.routes;
 
 public enum Render {
     WELCOME,

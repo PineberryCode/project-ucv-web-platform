@@ -19,7 +19,7 @@ getElementById('tab-employee');
 
 
 
-function getCookie(name) {
+function getCookie(name) { //Universal
     const cookieString = document.cookie;
     //console.log(cookieString);
     const cookies = cookieString.split('; ');

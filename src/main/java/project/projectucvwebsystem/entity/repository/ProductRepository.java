@@ -12,11 +12,29 @@ import project.projectucvwebsystem.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     
-    @Query(value = "SELECT DISTINCT c.ALIAS FROM CATEGORY c JOIN PRODUCT p ON c.ID_CATEGORY = p.ID_CATEGORY", nativeQuery = true)
+    @Query(
+        value = "SELECT DISTINCT c.ALIAS "+
+        "FROM CATEGORY c JOIN PRODUCT p "+
+        "ON c.ID_CATEGORY = p.ID_CATEGORY",
+        nativeQuery = true)
     public String[] Categories ();
 
-    @Query(value = "SELECT NAME_LARGE, QUANTITY FROM PRODUCT", nativeQuery = true)
+    @Query(value = "SELECT NAME_LARGE, QUANTITY "+
+    "FROM PRODUCT",
+    nativeQuery = true)
     public List<Object[]> NameLargeAndQuantity ();
+
+    @Query(
+        value = "SELECT p.NAME_LARGE "+
+        "FROM PRODUCT p "+
+        "INNER JOIN CATEGORY c "+
+        "ON p.ID_CATEGORY = c.ID_CATEGORY "+
+        "WHERE c.ALIAS = :ALIAS",
+        nativeQuery = true
+    )
+    public List<String> NameLargeByCategory (
+        @Param("ALIAS") String alias
+    );
 
     @Modifying
     @Transactional

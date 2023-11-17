@@ -20,7 +20,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import project.projectucvwebsystem.Routes.Render;
+import project.projectucvwebsystem.routes.Render;
 import project.projectucvwebsystem.service.EmployeeService;
 import project.projectucvwebsystem.service.ProductService;
 import project.projectucvwebsystem.service.SupplierService;
@@ -62,9 +62,6 @@ public class ControlPanelController {
         .map(supplier -> supplier[0]+"-"+supplier[1]+"-"+supplier[2]+"-"+supplier[3]+"-"+supplier[4])
         .collect(Collectors.joining(","));
         model.addAttribute("SupplierData", supplierData);
-        /*for (Object[] supplier : listSupplierData) {
-            System.out.println(supplier[1]);
-        }*/
 
         String[] categories = productService.getCategories();
         String Categories = Arrays.stream(categories)
@@ -102,177 +99,6 @@ public class ControlPanelController {
         }
 
         return "redirect:/restricted/login-view";
-    }
-
-    /*
-     * Supplier
-     */
-
-    @PostMapping("control-panel/register-supplier")
-    public String RegisterSupplier (
-        @RequestParam("name") String name,
-        @RequestParam("cel") String cel,
-        @RequestParam("email") String email,
-        @RequestParam("address") String address
-    ) {
-        supplierService.CreateANewSupplier(name, cel, email, address);
-        return "redirect:/restricted/control-panel";
-    }
-
-    @PostMapping("/control-panel/update-supplier") //@PutMapping | @PatchMapping
-    public String UpdateSupplier (
-        @RequestParam("supplierID") int ID
-    ) throws InterruptedException {
-
-        Cookie[] cookies = request.getCookies();
-        String extractedColumn = null;
-        String extractedValue = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("extractedColumnSupplier".equals(cookie.getName())) {
-                    extractedColumn = cookie.getValue();
-                    break;
-                }
-            }
-            for (Cookie cookie : cookies) {
-                if ("extractedValueSupplier".equals(cookie.getName())) {
-                    extractedValue = cookie.getValue();
-
-                    extractedValue = extractedValue.contains("%20") 
-                    ? extractedValue.replace("%20", " ") 
-                    : extractedValue;
-
-                    extractedValue = extractedValue.contains("%40")
-                    ? extractedValue.replace("%40", "@")
-                    : extractedValue;
-
-                    break;
-                }
-            }
-        }
-
-        //System.out.println("IDDDD: "+ID);
-        switch(extractedColumn) {
-            case "1" -> { //Case = {num of column}
-                supplierService.UpdateSupplierDescriptionName(extractedValue, ID);
-            }
-            case "2" -> {
-                supplierService.UpdateSupplierNumber(extractedValue, ID);
-            }
-            case "3" -> {
-                supplierService.UpdateSupplierEmail(extractedValue, ID);
-            }
-            case "4" -> {
-                supplierService.UpdateSupplierAddress(extractedValue, ID);
-            }
-        }
-
-        return "redirect:/restricted/control-panel";
-    }
-
-    @PostMapping("/control-panel/delete-supplier") //@DeleteMapping
-    public String DeleteSupplier (
-        @RequestParam("supplierID") int ID
-    ) {
-        Cookie cookie = new Cookie("removed", "true");
-        cookie.setMaxAge(60*60);
-        cookie.setPath("/restricted");
-        response.addCookie(cookie);
-
-        supplierService.DeleteOnlySupplier(ID);
-
-        return "redirect:/restricted/control-panel";
-    }
-
-    /*
-     * Employee
-     */
-
-    @PostMapping("control-panel/register-employee")
-    public String RegisterEmployee (
-        @RequestParam("email") String email,
-        @RequestParam("name") String name,
-        @RequestParam("lastname") String lastname,
-        @RequestParam("address") String address,
-        @RequestParam("username") String username,
-        @RequestParam("roles") String role,
-        @RequestParam("password") String password
-    ) throws InterruptedException {
-
-        userService.InsertANewUser(username, password, role);
-        int idUser = userService.FindIDByUsername(username);
-        Thread.sleep(500);
-        
-        employeeService.InsertNewEmployee(idUser, email, name, lastname, address);
-        
-        return "redirect:/restricted/control-panel";
-    }
-
-    @PostMapping("control-panel/update-employee")
-    public String UpdateEmployee (
-        @RequestParam("employeeID") int ID
-    ) throws InterruptedException {
-
-        Cookie[] cookies = request.getCookies();
-        String extractedColumn = null;
-        String extractedValue = null;
-
-        for (Cookie cookie : cookies) {
-            if ("extractedColumnEmployee".equals(cookie.getName())) {
-                extractedColumn = cookie.getValue();
-                break;
-            }
-        }
-
-        for (Cookie cookie : cookies) {
-            if ("extractedValueEmployee".equals(cookie.getName())) {
-                extractedValue = cookie.getValue();
-
-                extractedValue = extractedValue.contains("%20")
-                ? extractedValue.replace("%20", " ")
-                : extractedValue;
-
-                extractedValue = extractedValue.contains("%40")
-                ? extractedValue.replace("%40", "@")
-                : extractedValue;
-
-                break;
-            }
-        }
-
-        switch (extractedColumn) {
-            case "1" -> {
-                int idUser = employeeService.CatchIDEmployee(ID);
-                userService.UpdateUserRole(extractedValue, idUser);
-            }
-            case "2" -> {
-                employeeService.UpdateEmployeeEmail(extractedValue, ID);
-            }
-            case "3" -> {
-                employeeService.UpdateEmployeeNames(extractedValue, ID);
-            }
-            case "4" -> {
-                employeeService.UpdateEmployeeLastname(extractedValue, ID);
-            }
-            case "5" -> {
-                employeeService.UpdateEmployeeAddress(extractedValue, ID);
-            }
-        }
-
-        return "redirect:/restricted/control-panel";
-    }
-
-    @PostMapping("control-panel/delete-employee")
-    public String DeleteEmployee (
-        @RequestParam("employeeID") int ID
-    ) {
-
-        int idEmployeeStored = employeeService.CatchIDEmployee(ID);
-
-        employeeService.RemoveEmployee(ID);
-        userService.RemoveUser(idEmployeeStored);
-        
-        return "redirect:/restricted/control-panel";
     }
 
 }

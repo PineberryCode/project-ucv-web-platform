@@ -45,10 +45,10 @@ const FormAddNewProduct = ({setShowModal}) => {
               <div className="modal-body">
                 <select className="form-select" aria-label="">
                   <option selected>Selecciona una categoría</option>
-                  <option value="Porcelanato">Porcelanato</option>
-                  <option value="Inodoro">Inodoro</option>
-                  <option value="Lavadero">Lavadero</option>
-                  <option value="Accesorios">Accesorios</option>
+                  <option defaultValue="Porcelanato">Porcelanato</option>
+                  <option defaultValue="Inodoro">Inodoro</option>
+                  <option defaultValue="Lavadero">Lavadero</option>
+                  <option defaultValue="Accesorios">Accesorios</option>
                 </select>
                 <Input name="name" type="text" className="form-control" placeholder="Nombre-Producto" />
                 <Input name="quantity" type="number" className="form-control" placeholder="Cantidad" />
@@ -64,7 +64,7 @@ const FormAddNewProduct = ({setShowModal}) => {
     </div>
   );
 }
-
+// form className="needs-validation"
 const FormAddNewEmployee = ({setShowModal}) => {
   
   const closeModal = () => {setShowModal(false);}
@@ -89,7 +89,9 @@ const FormAddNewEmployee = ({setShowModal}) => {
             aria-label="Close">
             </button>
           </div>
-          <form action="/restricted/control-panel/register-employee" method="POST">
+          <form 
+          action="/restricted/control-panel/register-employee" 
+          method="POST">
               <div className="modal-body">
                 <div 
                 class="accordion shadow p-2 mb-4 bg-body rounded" 
@@ -114,10 +116,10 @@ const FormAddNewEmployee = ({setShowModal}) => {
                   data-bs-parent="#accordionUser">
                     <div class="accordion-body">
                       <select name="roles" className="form-select mb-3" aria-label="Default Select Value">
-                        <option selected>Selecciona un Rol</option>
-                        <option value="ADMIN">ADMIN</option>
-                        <option value="WAREHOUSE_MANAGE">Encargado de Almacén</option>
-                        <option value="VENDEDOR">Área de Ventas</option>
+                        <option defaultValue>Selecciona el Rol</option>
+                        <option defaultValue="ADMIN">ADMIN</option>
+                        <option defaultValue="WAREHOUSE_MANAGE">Encargado de Almacén</option>
+                        <option defaultValue="VENDEDOR">Área de Ventas</option>
                       </select>
                       <Input name="username" type="text" className="form-control" placeholder="Username" />
                       <Input name="password" type="password" className="form-control" placeholder="Password" />

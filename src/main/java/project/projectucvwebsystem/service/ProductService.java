@@ -19,4 +19,7 @@ public class ProductService {
 
     public List<Object[]> getNameLargeAndQuantities () {return productRepository.NameLargeAndQuantity();}
 
+    public List<String> getNameLargeByCategory (String alias) {
+        return productRepository.NameLargeByCategory(alias);
+    };
 }

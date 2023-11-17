@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import project.projectucvwebsystem.Routes.Render;
 import project.projectucvwebsystem.dto.AuthenticationResponse;
 import project.projectucvwebsystem.entity.User;
+import project.projectucvwebsystem.routes.Render;
 import project.projectucvwebsystem.service.AuthenticationService;
 
 @Controller

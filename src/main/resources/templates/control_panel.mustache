@@ -26,21 +26,21 @@
     <body>
     <div class="container">
         <div class="container position-fixed top-0 start-0 shadow p-3 mb-5 bg-body rounded w-25 h-100">
-            <h1 class="p-3">EMPRESA</h1>
+            <h1 class="p-3 mb-5">EMPRESA</h1>
             <ul class="nav flex-column">
-                <li class="nav-item p-2 mb-2">
+                <li class="nav-item p-2 mb-4">
                   <a class="nav-link disabled" aria-current="page">Panel de Control</a>
                 </li>
-                <li class="nav-item p-2 mb-2">
+                <li class="nav-item p-2 mb-4">
                   <a id="tab-supplier" class="nav-link">Proveedores</a>
                 </li>
-                <li class="nav-item p-2 mb-2">
+                <li class="nav-item p-2 mb-4">
                   <a id="tab-sales" class="nav-link">Ventas</a>
                 </li>
-                <li class="nav-item p-2 mb-2">
+                <li class="nav-item p-2 mb-4">
                   <a id="tab-stock" class="nav-link">Stock</a>
                 </li>
-                <li class="nav-item p-2 mb-2">
+                <li class="nav-item p-2 mb-4">
                   <a id="tab-employee" class="nav-link">Empleados</a>
                 </li>
             </ul>
@@ -63,13 +63,12 @@
       localStorage.removeItem('Categories');
       localStorage.removeItem('ObjectNameLargeAndQuantities');
       localStorage.removeItem('ListEmployeeTable');
+      localStorage.removeItem('ProductsString');
       /**/
       localStorage.setItem('SupplierData', JSON.stringify('{{{SupplierData}}}'));
-      console.log('{{{SupplierData}}}');
       localStorage.setItem('Categories', JSON.stringify('{{{Categories}}}'));
       localStorage.setItem('ObjectNameLargeAndQuantities', JSON.stringify('{{{ObjectNameLargeAndQuantities}}}'));
       localStorage.setItem('ListEmployeeTable', JSON.stringify('{{{ListEmployeeTable}}}'));
-      console.log('{{{ListEmployeeTable}}}');
     </script>
     </body>
 </html>

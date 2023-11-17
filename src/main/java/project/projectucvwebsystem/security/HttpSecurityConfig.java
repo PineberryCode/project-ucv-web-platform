@@ -61,6 +61,10 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/logout").hasAnyRole(
                 Role.ADMIN.name(),Role.WAREHOUSE_MANAGER.name(),Role.VENDEDOR.name()
             );
+
+            /*
+             * Supplier
+             */
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/delete-supplier").hasAuthority(
                 Permission.DELETE_SUPPLIER.name()
             );
@@ -70,6 +74,10 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-supplier").hasAuthority(
                 Permission.DELETE_SUPPLIER.name()
             );
+
+            /*
+             * Employee
+             */
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/delete-employee").hasAuthority(
                 Permission.DELETE_EMPLOYEE.name()
             );
@@ -80,6 +88,20 @@ public class HttpSecurityConfig {
                 Permission.REGISTER_EMPLOYEE.name()
             );
 
+            /*
+             * Sales
+             */
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-sale").hasAuthority(
+                Permission.REGISTER_SALE.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-sale").hasAuthority(
+                Permission.MODIFY_SALE.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/extract-category").hasAnyRole(
+                Role.ADMIN.name(),
+                Role.VENDEDOR.name()
+            );
+            
             authConfig.requestMatchers("/error").permitAll();
             authConfig.anyRequest().denyAll();
         };
