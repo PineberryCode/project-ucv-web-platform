@@ -61,3 +61,23 @@ const ButtonAddNewEmployee = () => {
         </>
     );
 }
+
+const ButtonLookAtInvoice = () => {
+    const [showModal, setShowModal] = useState(false);
+    const handleButtonClick = () => {setShowModal(true);}
+
+    return (
+        <>
+            <button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdropInvoice"
+            className="btn btn-info"
+            onClick={handleButtonClick}
+            >
+            Ver Factura
+            </button>
+            {showModal && <PreviewInvoice setShowModal={setShowModal} />}
+        </>
+    );
+}

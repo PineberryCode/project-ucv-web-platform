@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import io.jsonwebtoken.lang.Arrays;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,7 +54,7 @@ public class ControlPanelSale {
         Cookie productsCookie = new Cookie("ProductsString", productsString);
         productsCookie.setMaxAge(60*60);
         productsCookie.setPath("/restricted");
-        productsCookie.setSecure(true);
+        //productsCookie.setSecure(true);
 
         response.addCookie(productsCookie);
         System.out.println(productsString);

@@ -142,3 +142,37 @@ const FormAddNewEmployee = ({setShowModal}) => {
     </div>
   );
 }
+
+const PreviewInvoice = ({setShowModal}) => {
+  
+  function closeModal () {setShowModal(false);}
+
+  return (
+    <div
+    className="modal fade" 
+    id="staticBackdropInvoice" 
+    data-bs-backdrop="static" 
+    data-bs-keyboard="false" 
+    tabIndex="-1" 
+    aria-labelledby="staticBackdropLabel" 
+    aria-hidden="true">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="staticBackdropLabel">Preview de la Factura</h5>
+            <button 
+            type="button" 
+            className="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close">
+            </button>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
+            <button type="submit" className="btn btn-primary">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

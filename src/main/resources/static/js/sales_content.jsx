@@ -20,7 +20,8 @@ const SalesContent = () => {
             console.error('Exception: ',error)
         });
 
-        const product_str = getCookie("ProductsString"); //render.jsx
+        setTimeout (() => {
+            const product_str = getCookie("ProductsString"); //render.jsx
 
         var first_time = product_str.includes('%20') 
         ? product_str.replaceAll('%20',' ')
@@ -35,6 +36,7 @@ const SalesContent = () => {
         setArrProduct(second_time.split(','));
 
         console.log(arrProduct)
+        }, 1000);
 
     }
 
@@ -137,12 +139,7 @@ const SalesContent = () => {
         <div
         className="text-center"
         >
-            <button
-            type="button"
-            className="btn btn-info"
-            >
-                Ver Boleta                
-            </button>
+            <ButtonLookAtInvoice />
         </div>
         </>
     );
