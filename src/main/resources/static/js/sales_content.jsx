@@ -99,12 +99,7 @@ const SalesContent = () => {
                     min="0"
                     max="1000"
                     />
-                    <button 
-                    type="button"
-                    className="btn btn-outline-info"
-                    >
-                        Agregar Producto
-                    </button>
+                    <ButtonAddNewProductFromSale />
                 </div>
             </div>
         </div>

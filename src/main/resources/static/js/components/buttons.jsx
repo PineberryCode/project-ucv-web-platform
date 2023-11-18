@@ -21,22 +21,24 @@ const ButtonAddNewSupplier = () => {
     );
 }
 
-const ButtonAddNewProduct = () => {
+const ButtonAddNewProductFromSale = () => {
 
-    const [showModal, setShowModal] = useState(false);
-    const handleButtonClick = () => {setShowModal(true);}
+    const [showToast, setToast] = useState(false);
+    const handleButtonClick = () => {
+        setToast(true);
+        console.log("click");
+    }
 
     return (
         <>
-            <button 
-            type="button" 
-            data-bs-toggle="modal" 
-            data-bs-target="#staticBackdropProduct" 
-            className="btn btn-success"
+            <button
+            id="liveToastBtn"
+            type="button"
+            className="btn btn-outline-info"
             onClick={handleButtonClick}>
-            +
+            Agregar Producto
             </button>
-            {showModal && <FormAddNewProduct setShowModal={setShowModal} />}
+            {showToast && <MyToast setToast={setToast}/>}
         </>
     );
 }
