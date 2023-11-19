@@ -24,6 +24,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     nativeQuery = true)
     public List<Object[]> NameLargeAndQuantity ();
 
+    @Query (value = "SELECT p.ID_PRODUCT, c.ALIAS, p.NAME_LARGE, p.QUANTITY, p.UNIT_PRICE "+
+    "FROM PRODUCT p "+
+    "INNER JOIN CATEGORY c "+
+    "ON c.ID_CATEGORY = p.ID_CATEGORY",
+    nativeQuery = true)
+    public List<Object[]> DataAllProducts ();
+
     @Query(
         value = "SELECT p.NAME_LARGE "+
         "FROM PRODUCT p "+

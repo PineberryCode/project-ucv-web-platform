@@ -81,6 +81,12 @@ public class ControlPanelController {
         .collect(Collectors.joining(","));
         model.addAttribute("ListEmployeeTable", joinedListEmployee);
 
+        List<Object[]> productDataList = productService.DataAllProducts();
+        String joinedStringProduct = productDataList.stream()
+        .map(row -> row[0]+"-"+row[1]+"-"+row[2]+"-"+row[3]+"-"+row[4])
+        .collect(Collectors.joining(","));
+        model.addAttribute("ProductDataList", joinedStringProduct);
+
         return Render.CONTROL_PANEL.name();
     }
 

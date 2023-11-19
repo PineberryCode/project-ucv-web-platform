@@ -15,11 +15,19 @@ public class ProductService {
     @Autowired
     private final ProductRepository productRepository;
 
-    public String[] getCategories () {return productRepository.Categories();}
+    public String[] getCategories () {
+        return productRepository.Categories();
+    }
 
-    public List<Object[]> getNameLargeAndQuantities () {return productRepository.NameLargeAndQuantity();}
+    public List<Object[]> getNameLargeAndQuantities () {
+        return productRepository.NameLargeAndQuantity();
+    }
 
     public List<String> getNameLargeByCategory (String alias) {
         return productRepository.NameLargeByCategory(alias);
     };
+
+    public List<Object[]> DataAllProducts () {
+        return productRepository.DataAllProducts();
+    }
 }

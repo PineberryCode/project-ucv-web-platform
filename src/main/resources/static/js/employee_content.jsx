@@ -65,9 +65,9 @@ const EmployeeContent = () => {
                     <th scope="col">ID</th>
                     <th scope="col">Rol</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Names</th>
-                    <th scope="col">Lastname</th>
-                    <th scope="col">Address</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Dirección</th>
                     <th scope="col">Acción</th>
                 </tr>
             </thead>

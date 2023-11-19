@@ -49,8 +49,9 @@ tabSales.addEventListener('click', () => {
 });
 
 tabStock.addEventListener('click', () => {
-    google.charts.load('current', {'packages':['corechart','bar']});
-    google.charts.setOnLoadCallback(drawStockBarChart);
+    /*google.charts.load('current', {'packages':['corechart','bar']});
+    google.charts.setOnLoadCallback(drawStockBarChart);*/
+    root.render(<ProductContent />)
 });
 
 tabEmployee.addEventListener('click', () => {

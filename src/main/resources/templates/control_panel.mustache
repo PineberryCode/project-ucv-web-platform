@@ -16,6 +16,7 @@
         <script data-type="text/javascript" type="text/babel" src="/static/js/supplier_content.jsx"></script>
         <script data-type="text/javascript" type="text/babel" src="/static/js/employee_content.jsx"></script>
         <script data-type="text/javascript" type="text/babel" src="/static/js/sales_content.jsx"></script>
+        <script data-type="text/javascript" type="text/babel" src="/static/js/product_content.jsx"></script>
         <script data-type="text/javascript" type="text/babel" src="/static/js/components/toast.jsx"></script>
         <script data-type="text/javascript" type="text/babel" src="/static/js/render.jsx"></script>
         <script defer type="text/javascript" src="/static/js/request.js"></script>
@@ -65,11 +66,13 @@
       localStorage.removeItem('ObjectNameLargeAndQuantities');
       localStorage.removeItem('ListEmployeeTable');
       localStorage.removeItem('ProductsString');
+      localStorage.removeItem('ProductDataList');
       /**/
       localStorage.setItem('SupplierData', JSON.stringify('{{{SupplierData}}}'));
       localStorage.setItem('Categories', JSON.stringify('{{{Categories}}}'));
       localStorage.setItem('ObjectNameLargeAndQuantities', JSON.stringify('{{{ObjectNameLargeAndQuantities}}}'));
       localStorage.setItem('ListEmployeeTable', JSON.stringify('{{{ListEmployeeTable}}}'));
+      localStorage.setItem('ProductDataList', JSON.stringify('{{{ProductDataList}}}'));
     </script>
     </body>
 </html>
