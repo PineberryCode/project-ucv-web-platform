@@ -21,24 +21,23 @@ const ButtonAddNewSupplier = () => {
     );
 }
 
-const ButtonAddNewProductFromSale = () => {
-
-    const [showToast, setToast] = useState(false);
+const ButtonAddNewProduct = () => {
+    const [showModal, setShowModal] = useState(false);
     const handleButtonClick = () => {
-        setToast(true);
-        console.log("click");
+        setShowModal(true);
     }
 
     return (
         <>
-            <button
-            id="liveToastBtn"
-            type="button"
-            className="btn btn-outline-info"
+            <button 
+            type="button" 
+            data-bs-toggle="modal" 
+            data-bs-target="#staticBackdropProduct" 
+            className="btn btn-success"
             onClick={handleButtonClick}>
-            Agregar Producto
+            Agregar Nuevo Producto
             </button>
-            {showToast && <MyToast setToast={setToast}/>}
+            {showModal && <FormAddNewProduct setShowModal={setShowModal} />}
         </>
     );
 }
@@ -60,6 +59,28 @@ const ButtonAddNewEmployee = () => {
             +
             </button>
             {showModal && <FormAddNewEmployee setShowModal={setShowModal} />}
+        </>
+    );
+}
+
+const ButtonAddNewProductFromSale = () => {
+
+    const [showToast, setToast] = useState(false);
+    const handleButtonClick = () => {
+        setToast(true);
+        console.log("click");
+    }
+
+    return (
+        <>
+            <button
+            id="liveToastBtn"
+            type="button"
+            className="btn btn-outline-info"
+            onClick={handleButtonClick}>
+            Agregar Producto
+            </button>
+            {showToast && <MyToast setToast={setToast}/>}
         </>
     );
 }

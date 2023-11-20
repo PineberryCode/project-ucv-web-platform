@@ -58,6 +58,8 @@ const ProductContent = () => {
 
     return (
         <>
+            <ButtonAddNewProduct />
+            
             <h4 className="p-5">Productos</h4>
             <table className="table table-hover">
             <thead className="table-bordered border-primary text-center">

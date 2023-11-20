@@ -43,7 +43,7 @@ const FormAddNewProduct = ({setShowModal}) => {
           </div>
           <form action="/restricted/control-panel/register-product" method="POST">
               <div className="modal-body">
-                <select className="form-select" aria-label="">
+                <select className="form-select mb-3" aria-label="">
                   <option selected>Selecciona una categoría</option>
                   <option defaultValue="Porcelanato">Porcelanato</option>
                   <option defaultValue="Inodoro">Inodoro</option>
@@ -51,8 +51,23 @@ const FormAddNewProduct = ({setShowModal}) => {
                   <option defaultValue="Accesorios">Accesorios</option>
                 </select>
                 <Input name="name" type="text" className="form-control" placeholder="Nombre-Producto" />
-                <Input name="quantity" type="number" className="form-control" placeholder="Cantidad" />
-                <Input name="unit-price" type="number" className="form-control" placeholder="Precio Unitario" />
+                <Input 
+                name="quantity" 
+                type="number" 
+                className="form-control" 
+                placeholder="Cantidad" 
+                defaultValue="0"
+                min="0"
+                max="1000"
+                />
+                <Input 
+                name="unit-price" 
+                type="number" 
+                className="form-control" 
+                placeholder="Precio Unitario" 
+                defaultValue="0"
+                min="0"
+                />
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
