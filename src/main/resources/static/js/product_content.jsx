@@ -109,11 +109,6 @@ const ProductContent = () => {
                 </td>
                 </tr>
             ))}
-            <tr className="text-center">
-                <td>
-                    
-                </td>
-            </tr>
             </tbody>
             </table>
         </>

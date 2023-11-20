@@ -101,6 +101,15 @@ public class HttpSecurityConfig {
                 Role.ADMIN.name(),
                 Role.VENDEDOR.name()
             );
+            /*
+             * Product
+             */
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-product").hasAuthority(
+                Permission.REGISTER_PRODUCT.name()
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-sale").hasAuthority(
+                Permission.MODIFY_PRODUCT.name()
+            );
             
             authConfig.requestMatchers("/error").permitAll();
             authConfig.anyRequest().denyAll();
