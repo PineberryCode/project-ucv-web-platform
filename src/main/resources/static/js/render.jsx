@@ -5,6 +5,9 @@ const root = ReactDOM.createRoot(
     document.getElementById('root')
 );
 
+var tabMain = document.
+getElementById('tab-main');
+
 var tabSupplier = document.
 getElementById('tab-supplier');
 
@@ -39,6 +42,11 @@ if (deletedSupplier === 'true') {
 } else {
     console.log('hola');
 };
+
+tabMain.addEventListener('click', () => {
+    //root.render(<DrawStockBarChart />);
+    root.render(<h1>Graphics</h1>);
+})
 
 tabSupplier.addEventListener('click', () => {
     root.render(<SupplierContent />);

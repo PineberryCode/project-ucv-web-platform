@@ -1,4 +1,6 @@
 //const recoverCategories = JSON.parse(localStorage.getItem('Categories'));
+import { Chart } from "react-google-charts";
+
 const recoverNameAndQuantitiesProduct = JSON.parse(localStorage.getItem('ObjectNameLargeAndQuantities'));
 
 //let arrCategories = recoverCategories.split(",");
@@ -15,10 +17,10 @@ for (let x of arrRowNameAndQuantitiesProduct) {
     dataNamesQuantities.push([names,quantities]);
 }
 
-function drawStockBarChart () {
+function DrawStockBarChart () {
     
-    var data = new google.visualization.arrayToDataTable (dataNamesQuantities);
-    var options = {
+    //var data = new google.visualization.arrayToDataTable (dataNamesQuantities);
+    /*var options = {
         title: 'STOCK',
         chartArea: {width: '50%'},
         colors: ['#082573'],
@@ -38,11 +40,21 @@ function drawStockBarChart () {
         legend: {
             position: 'right'
         }
-    };
+    };*/
 
-    var chart = new google.visualization.BarChart(document.getElementById('overview-x'));
+    return (
+      <Chart 
+        chartType="ScatterChart"
+        data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
+        width="100%"
+        height="400px"
+        legendToggle
+      />
 
-    chart.draw(data, options);
+    );
+    //var chart = new google.visualization.BarChart(document.getElementById('overview-x'));
+
+    //chart.draw(data, options);
 }
 //Render the graphic with ReactDOM 
 //export default drawStockBarChart

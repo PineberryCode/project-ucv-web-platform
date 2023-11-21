@@ -88,6 +88,19 @@ const EmployeeContent = () => {
                         id="form-update-employee" 
                         action="/restricted/control-panel/update-employee" 
                         method="POST">
+                        {columnIndex === 1 ? (
+                            <select 
+                            className="form-select mb-3" 
+                            aria-label="Default Select Value"
+                            onChange={(e) => handleInputChange(e,rowIndex,columnIndex)}
+                            onKeyDown={handleInputKeyDown}
+                            onKeyUp={handleInputKeyUp}>
+                                <option selected>Selecciona un Role</option>
+                                <option>ADMIN</option>
+                                <option>WAREHOUSE_MANAGER</option>
+                                <option>VENDEDOR</option>
+                            </select>
+                        ) : (
                             <input 
                             className="form-control"
                             type="text"
@@ -96,6 +109,7 @@ const EmployeeContent = () => {
                             onKeyDown={handleInputKeyDown}
                             onKeyUp={handleInputKeyUp}
                             />
+                        )}
                             <input type="hidden" name="employeeID" value={employee[0]} />
                         </form>
                       ) : (cell)
