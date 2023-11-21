@@ -9,6 +9,7 @@ const Input = ({
     minLength,
     max,
     maxLength,
+    step
 }) => {
     return (
         <div className="form-floating mb-3">
@@ -23,6 +24,7 @@ const Input = ({
             minLength={minLength !== undefined ? minLength : ''}
             max={max !== undefined ? max : ''}
             maxLength={maxLength !== undefined ? maxLength : ''}
+            step={step !== undefined ? step : ''}
             />
             <label htmlFor="floatingInput">{placeholder}</label>
         </div>

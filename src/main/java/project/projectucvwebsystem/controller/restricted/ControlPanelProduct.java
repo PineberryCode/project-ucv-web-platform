@@ -32,7 +32,14 @@ public class ControlPanelProduct {
         @RequestParam("unit-price") double unitPrice
     ) {
 
-        productService.InsertNewProduct(idCategory, nameProduct, quantity, unitPrice);
+        productService.InsertNewProduct(
+            idCategory, 
+            nameProduct, 
+            quantity, 
+            unitPrice
+        );
+
+        System.out.println("Category: "+idCategory);
 
         return "redirect:/restricted/control-panel";
     }
@@ -89,7 +96,6 @@ public class ControlPanelProduct {
             
         }
         
-
         return "redirect:/restricted/control-panel";
     }
 }
