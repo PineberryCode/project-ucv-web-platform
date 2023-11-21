@@ -107,7 +107,7 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/register-product").hasAuthority(
                 Permission.REGISTER_PRODUCT.name()
             );
-            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-sale").hasAuthority(
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-product").hasAuthority(
                 Permission.MODIFY_PRODUCT.name()
             );
             

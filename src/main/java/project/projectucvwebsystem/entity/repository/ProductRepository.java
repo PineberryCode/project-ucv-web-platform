@@ -51,7 +51,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         nativeQuery = true
     )
     public void InsertNewProduct (
-        @Param("ID_CATEGORY") String category,
+        @Param("ID_CATEGORY") int category,
         @Param("NAME_LARGE") String nameLarge,
         @Param("QUANTITY") int quantity,
         @Param("UNIT_PRICE") double unitPrice
@@ -60,12 +60,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
     @Transactional
     @Query (
-        value = "UPDATE PRODUCT SET ID_CATEGORY = :ID_CATEGORY "+
+        value = "UPDATE PRODUCT "+
+        "SET ID_CATEGORY = "+
+        "CASE "+
+            "WHEN :CATEGORY = 'Porcelanato' THEN 1 "+
+            "WHEN :CATEGORY = 'Inodoro' THEN 2 "+
+            "WHEN :CATEGORY = 'Lavadero' THEN 3 "+
+            "WHEN :CATEGORY = 'Accesorios' THEN 4 "+
+        "END "+
         "WHERE ID_PRODUCT = :ID",
         nativeQuery = true
     )
     public void UpdateCategoryFromProduct (
-        @Param("ID_CATEGORY") int idCategory,
+        @Param("CATEGORY") String category,
         @Param("ID") int idProduct
     );
 
@@ -78,7 +85,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateNameLargeFromProduct (
         @Param("NAME_LARGE") String nameLarge,
-        @Param("ID") String idProduct
+        @Param("ID") int idProduct
     );
 
     @Modifying
@@ -90,7 +97,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateQuantityFromProduct (
         @Param("QUANTITY") int quantity,
-        @Param("ID") String idProduct
+        @Param("ID") int idProduct
     );
 
     @Modifying
@@ -102,7 +109,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateUnitPriceFromProduct (
         @Param("UNIT_PRICE") double unitPrice,
-        @Param("ID") String idProduct
+        @Param("ID") int idProduct
     );
 
     @Modifying

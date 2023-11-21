@@ -30,4 +30,58 @@ public class ProductService {
     public List<Object[]> DataAllProducts () {
         return productRepository.DataAllProducts();
     }
+
+    public void InsertNewProduct (
+        int idCategory,
+        String nameProduct,
+        int quantity,
+        double unitPrice
+        ) {
+        productRepository.InsertNewProduct(
+            idCategory, 
+            nameProduct, 
+            quantity, 
+            unitPrice
+        );
+    }
+
+    public void UpdateCategoryFromProduct (
+        String category,
+        int idProduct
+    ) {
+        productRepository.UpdateCategoryFromProduct(
+            category, 
+            idProduct
+        );
+    }
+
+    public void UpdateNameLargeFromProduct (
+        String nameLarge,
+        int idProduct
+    ) {
+        productRepository.UpdateNameLargeFromProduct (
+            nameLarge, 
+            idProduct
+        );
+    }
+
+    public void UpdateQuantityFromProduct (
+        int quantity,
+        int idProduct
+    ) {
+        productRepository.UpdateQuantityFromProduct(
+            quantity, 
+            idProduct
+        );
+    }
+
+    public void UpdateUnitPriceFromProduct (
+        double unitPrice,
+        int idProduct
+    ) {
+        productRepository.UpdateUnitPriceFromProduct(
+            unitPrice, 
+            idProduct
+        );
+    }
 }

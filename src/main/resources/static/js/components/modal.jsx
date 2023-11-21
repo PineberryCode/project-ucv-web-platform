@@ -43,14 +43,14 @@ const FormAddNewProduct = ({setShowModal}) => {
           </div>
           <form action="/restricted/control-panel/register-product" method="POST">
               <div className="modal-body">
-                <select className="form-select mb-3" aria-label="">
+                <select name="Category" className="form-select mb-3" aria-label="Default Select Value">
                   <option selected>Selecciona una categoría</option>
-                  <option defaultValue="Porcelanato">Porcelanato</option>
-                  <option defaultValue="Inodoro">Inodoro</option>
-                  <option defaultValue="Lavadero">Lavadero</option>
-                  <option defaultValue="Accesorios">Accesorios</option>
+                  <option defaultValue="1">Porcelanato</option>
+                  <option defaultValue="2">Inodoro</option>
+                  <option defaultValue="3">Lavadero</option>
+                  <option defaultValue="4">Accesorios</option>
                 </select>
-                <Input name="name" type="text" className="form-control" placeholder="Nombre-Producto" />
+                <Input name="name" type="text" className="form-control" placeholder="Nombre Producto" />
                 <Input 
                 name="quantity" 
                 type="number" 

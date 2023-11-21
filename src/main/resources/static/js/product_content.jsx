@@ -89,14 +89,28 @@ const ProductContent = () => {
                         id="form-update-product" 
                         action="/restricted/control-panel/update-product" 
                         method="POST">
-                            <input 
+                        {columnIndex === 1 ? (
+                            <select 
+                            className="form-select mb-3" 
+                            aria-label="Default Select Value"
+                            onChange={(e) => handleInputChange(e,rowIndex,columnIndex)}
+                            onKeyDown={handleInputKeyDown}
+                            onKeyUp={handleInputKeyUp}>
+                                <option selected>Selecciona una categoría</option>
+                                <option>Porcelanato</option>
+                                <option>Inodoro</option>
+                                <option>Lavadero</option>
+                                <option>Accesorios</option>
+                            </select>
+                        ): (<input 
                             className="form-control"
                             type="text"
                             value={cell}
                             onChange={(e) => handleInputChange(e, rowIndex, columnIndex)}
                             onKeyDown={handleInputKeyDown}
                             onKeyUp={handleInputKeyUp}
-                            />
+                            />)}
+                            
                             <input type="hidden" name="productID" value={product[0]} />
                         </form>
                       ) : (cell)
