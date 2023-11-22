@@ -2,6 +2,7 @@
  * /control-panel
  */
 #tab-supplier,#tab-sales,
-#tab-stock,#tab-employee {
+#tab-stock,#tab-employee,
+#tab-main {
     cursor: pointer;
 }

@@ -7,6 +7,7 @@ const SalesContent = () => {
     const [arrProduct, setArrProduct] = useState([]);
 
     function handleSelectChange (e) {
+        e.preventDefault();
         setCategory(e.target.value,);
         document.cookie=`selectedCategory=${e.target.value}; path=/restricted; max-age=3600; samesite=None; secure;`;
         
@@ -14,39 +15,34 @@ const SalesContent = () => {
             method: 'POST'
         })
         .then(response => {
-            console.log('Solicitud completada.',response)
+            console.log('Solicitud completada.',response);
+            setTimeout (() => {
+                const product_str = getCookie("ProductsString"); //render.jsx
+    
+                var first_time = product_str.includes('%20') 
+                ? product_str.replaceAll('%20',' ')
+                : product_str;
+                var second_time = first_time.includes('%c')
+                ? first_time.replaceAll('%c',',')
+                : first_time;
+                
+                console.log(second_time);
+    
+                //arrProduct = second_time.split(',');
+                setArrProduct(second_time.split(','));
+    
+                console.log(arrProduct)
+            }, 1000);
         })
         .catch(error => {
             console.error('Exception: ',error)
         });
-
-        setTimeout (() => {
-            const product_str = getCookie("ProductsString"); //render.jsx
-
-        var first_time = product_str.includes('%20') 
-        ? product_str.replaceAll('%20',' ')
-        : product_str;
-        var second_time = first_time.includes('%c')
-        ? first_time.replaceAll('%c',',')
-        : first_time;
-
-        console.log(second_time);
-
-        //arrProduct = second_time.split(',');
-        setArrProduct(second_time.split(','));
-
-        console.log(arrProduct)
-        }, 1000);
 
     }
 
     useEffect(() => {
         console.log("Selected: ", category)
     }, [category]);
-
-    function handleButtonClick () {
-        console.log("Selected: ",category);
-    }
 
     return (
         <>
@@ -63,28 +59,29 @@ const SalesContent = () => {
                     >
                         Datos del Producto
                     </h5>
+                    <form id="form-sales-add-product">
                     <select
-                    name="categories"
+                    name="category"
                     className="form-select form-select-sm mb-3 w-75" 
-                    aria-label=".form-select-sm categories"
+                    aria-label=".form-select-sm category"
                     onChange={handleSelectChange}
                     >
                         <option defaultValue>Seleccione la categoría</option>
-                        <option defaultValue="Porcelanato">Porcelanato</option>
-                        <option defaultValue="Inodoro">Inodoro</option>
-                        <option defaultValue="Lavadero">Lavadero</option>
-                        <option defaultValue="Accesorios">Accesorios</option>
+                        <option value="Porcelanato">Porcelanato</option>
+                        <option value="Inodoro">Inodoro</option>
+                        <option value="Lavadero">Lavadero</option>
+                        <option value="Accesorios">Accesorios</option>
                     </select>
                     <select
                     name="product-name"
                     className="form-select form-select-sm mb-3" 
-                    aria-label=".form-select-sm categories"
+                    aria-label=".form-select-sm category"
                     >
                         <option defaultValue>Seleccione el producto</option>
                         {arrProduct.map((product, index) => (
                             <option 
                             key={index} 
-                            defaultValue={product}
+                            value={product}
                             >
                             {product}
                             </option>
@@ -100,6 +97,7 @@ const SalesContent = () => {
                     max="1000"
                     />
                     <ButtonAddNewProductFromSale />
+                    </form>
                 </div>
             </div>
         </div>

@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import project.projectucvwebsystem.entity.Invoice;
+import project.projectucvwebsystem.service.InvoiceService;
 import project.projectucvwebsystem.service.ProductService;
 
 @Controller
@@ -29,6 +31,9 @@ public class ControlPanelSale {
 
     @Autowired
     HttpServletResponse response;
+
+    @Autowired
+    InvoiceService invoiceService;
 
     @PostMapping("/extract-category") 
     public void ExtractProduct () {
@@ -60,8 +65,22 @@ public class ControlPanelSale {
         System.out.println(productsString);
     }
 
+    @PostMapping("/add-product")
+    public void addProduct (
+        @RequestParam("category") String category,
+        @RequestParam("product-name") String productName,
+        @RequestParam("quantity") int quantity
+    ) {
+
+        invoiceService.setCategory(category);
+        invoiceService.addProduct(productName, quantity);
+        invoiceService.viewProducts();
+        System.out.println("CATEGORY: "+invoiceService.getCategory());
+    }
+
     @PostMapping("/register-sale")
     public String RegisterSale () {
+
         return "redirect:/restricted/control-panel";
     }
 

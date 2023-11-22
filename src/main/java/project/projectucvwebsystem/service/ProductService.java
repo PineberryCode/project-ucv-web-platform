@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import project.projectucvwebsystem.entity.Invoice;
 import project.projectucvwebsystem.entity.repository.ProductRepository;
 
 @Service

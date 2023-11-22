@@ -66,21 +66,45 @@ const ButtonAddNewEmployee = () => {
 const ButtonAddNewProductFromSale = () => {
 
     const [showToast, setToast] = useState(false);
-    const handleButtonClick = () => {
+    const handleButtonClick = (e) => {
+        e.preventDefault();
         setToast(true);
-        console.log("click");
+        /*setTimeout(() => {
+            document.getElementById('form-sales-add-product').submit();
+        },1000);*/
+        /*
+         <form 
+                    id="form-sales-add-product" 
+                    action="/restricted/control-panel/add-product" 
+                    method="POST">
+        */
+       const form = document.getElementById('form-sales-add-product');
+       const formData = new FormData(form);
+        fetch ('/restricted/control-panel/add-product', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log('Solicitud completada.',response);
+            setTimeout (() => {
+                
+            }, 1000);
+        })
+        .catch(error => {
+            console.error('Exception: ',error)
+        });
     }
 
     return (
         <>
-            <button
-            id="liveToastBtn"
-            type="button"
-            className="btn btn-outline-info"
-            onClick={handleButtonClick}>
-            Agregar Producto
-            </button>
-            {showToast && <MyToast setToast={setToast}/>}
+        <button
+        id="liveToastBtn"
+        type="button"
+        className="btn btn-outline-info"
+        onClick={handleButtonClick}>
+        Agregar Producto
+        </button>
+        {showToast && <MyToast setToast={setToast}/>}
         </>
     );
 }

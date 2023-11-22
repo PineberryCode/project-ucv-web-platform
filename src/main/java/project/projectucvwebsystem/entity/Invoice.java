@@ -1,19 +1,21 @@
 package project.projectucvwebsystem.entity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Invoice {
-    private String category;
-    private List<Map.Entry<String, Integer>> productos = new ArrayList<>(); //Name|Quantities of Product
-    private String nameClient;
-    private String contactNumberClient;
-    private double totalPrice;
+    protected String category;
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    protected Map<String, Integer> productCharacteristicsList = new HashMap<>(); //Name|Quantities of Product
+    protected String nameClient;
+    protected String contactNumberClient;
+    protected double totalPrice;
 }
