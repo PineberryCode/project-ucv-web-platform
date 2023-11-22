@@ -101,33 +101,6 @@ const SalesContent = () => {
                 </div>
             </div>
         </div>
-            <div className="col-md-5 m-4">
-                <div
-                className="card border-0"
-                >
-                    <div 
-                    className="card-body shadow-lg p-3 mb-5 bg-body rounded"
-                    >
-                        <h5
-                        className="p-3"
-                        >
-                            Datos del Cliente
-                        </h5>
-                        <Input 
-                        name="surname" 
-                        type="text"  
-                        className="form-control"
-                        placeholder="Nombre completo"
-                        />
-                        <Input 
-                        name="cel-client"
-                        type="text"
-                        className="form-control"
-                        placeholder="Número de Contacto/Teléfono"
-                        />
-                    </div>
-                </div>
-            </div>
         </div>
         <div
         className="text-center"

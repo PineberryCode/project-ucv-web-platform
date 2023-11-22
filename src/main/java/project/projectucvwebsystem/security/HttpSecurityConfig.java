@@ -97,8 +97,14 @@ public class HttpSecurityConfig {
             authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/update-sale").hasAuthority(
                 Permission.MODIFY_SALE.name()
             );
-            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/extract-category").permitAll();
-            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/add-product").permitAll();
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/extract-category").hasAnyRole(
+                Role.ADMIN.name(),
+                Role.VENDEDOR.name()   
+            );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/add-product").hasAnyRole(
+                Role.ADMIN.name(),
+                Role.VENDEDOR.name()
+            );
             /*
              * Product
              */

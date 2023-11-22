@@ -183,6 +183,25 @@ const PreviewInvoice = ({setShowModal}) => {
             aria-label="Close">
             </button>
           </div>
+          <div className="modal-body">
+              <h5
+              className="p-3"
+              >
+                  Datos del Cliente
+              </h5>
+              <Input 
+              name="surname" 
+              type="text"  
+              className="form-control"
+              placeholder="Nombre completo"
+              />
+              <Input 
+              name="cel-client"
+              type="text"
+              className="form-control"
+              placeholder="Número de Contacto/Teléfono"
+              />
+            </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
             <button type="submit" className="btn btn-primary">Registrar</button>
