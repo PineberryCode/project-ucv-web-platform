@@ -20,11 +20,8 @@ getElementById('tab-stock');
 var tabEmployee = document.
 getElementById('tab-employee');
 
-
-
 function getCookie(name) { //Universal
     const cookieString = document.cookie;
-    //console.log(cookieString);
     const cookies = cookieString.split('; ');
 
     for (const cookie of cookies) {
@@ -44,8 +41,7 @@ if (deletedSupplier === 'true') {
 };
 
 tabMain.addEventListener('click', () => {
-    //root.render(<DrawStockBarChart />);
-    root.render(<h1>Graphics</h1>);
+    root.render(<DrawStockBarChart />);
 })
 
 tabSupplier.addEventListener('click', () => {
@@ -57,11 +53,11 @@ tabSales.addEventListener('click', () => {
 });
 
 tabStock.addEventListener('click', () => {
-    /*google.charts.load('current', {'packages':['corechart','bar']});
-    google.charts.setOnLoadCallback(drawStockBarChart);*/
     root.render(<ProductContent />)
 });
 
 tabEmployee.addEventListener('click', () => {
     root.render(<EmployeeContent />);
 });
+
+root.render(<DrawStockBarChart />);
