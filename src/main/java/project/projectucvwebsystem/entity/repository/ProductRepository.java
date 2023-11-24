@@ -43,6 +43,18 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         @Param("ALIAS") String alias
     );
 
+    @Query (
+        value = "SELECT p.NAME_LARGE, p.QUANTITY "+
+        "FROM PRODUCT p "+
+        "INNER JOIN CATEGORY c "+
+        "ON p.ID_CATEGORY = c.ID_CATEGORY "+
+        "WHERE c.ALIAS = :ALIAS",
+        nativeQuery = true
+    )
+    public List<Object[]> DataStockForGraphic (
+        @Param("ALIAS") String alias
+    );
+
     @Modifying
     @Transactional
     @Query (

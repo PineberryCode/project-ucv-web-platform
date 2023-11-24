@@ -69,15 +69,7 @@ const ButtonAddNewProductFromSale = () => {
     const handleButtonClick = (e) => {
         e.preventDefault();
         setToast(true);
-        /*setTimeout(() => {
-            document.getElementById('form-sales-add-product').submit();
-        },1000);*/
-        /*
-         <form 
-                    id="form-sales-add-product" 
-                    action="/restricted/control-panel/add-product" 
-                    method="POST">
-        */
+        
        const form = document.getElementById('form-sales-add-product');
        const formData = new FormData(form);
         fetch ('/restricted/control-panel/add-product', {

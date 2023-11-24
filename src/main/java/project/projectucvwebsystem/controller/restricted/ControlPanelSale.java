@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import project.projectucvwebsystem.entity.Invoice;
 import project.projectucvwebsystem.service.InvoiceService;
 import project.projectucvwebsystem.service.ProductService;
 
@@ -75,7 +74,6 @@ public class ControlPanelSale {
         invoiceService.setCategory(category);
         invoiceService.addProduct(productName, quantity);
         invoiceService.viewProducts();
-        System.out.println("CATEGORY: "+invoiceService.getCategory());
     }
 
     @PostMapping("/register-sale")

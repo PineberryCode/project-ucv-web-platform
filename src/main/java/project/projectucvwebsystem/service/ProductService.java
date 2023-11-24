@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import project.projectucvwebsystem.entity.Invoice;
 import project.projectucvwebsystem.entity.repository.ProductRepository;
 
 @Service
@@ -27,6 +26,12 @@ public class ProductService {
     public List<String> getNameLargeByCategory (String alias) {
         return productRepository.NameLargeByCategory(alias);
     };
+
+    public List<Object[]> getNameAndQuantityFromProductByCategory (
+        String category
+    ) {
+        return productRepository.DataStockForGraphic(category);
+    }
 
     public List<Object[]> DataAllProducts () {
         return productRepository.DataAllProducts();
