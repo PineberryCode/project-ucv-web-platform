@@ -60,4 +60,4 @@ tabEmployee.addEventListener('click', () => {
     root.render(<EmployeeContent />);
 });
 
-root.render(<DrawStockBarChart />);
+//root.render(<DrawStockBarChart />);
