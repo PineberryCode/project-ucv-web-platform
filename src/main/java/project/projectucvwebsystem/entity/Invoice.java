@@ -15,7 +15,4 @@ public class Invoice {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     protected Map<String, Integer> productCharacteristicsList = new HashMap<>(); //Name|Quantities of Product
-    protected String nameClient;
-    protected String contactNumberClient;
-    protected double totalPrice;
 }

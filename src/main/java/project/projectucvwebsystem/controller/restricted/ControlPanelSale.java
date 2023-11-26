@@ -97,6 +97,8 @@ public class ControlPanelSale {
     @PostMapping("/register-sale")
     public String RegisterSale () {
 
+        
+
         return "redirect:/restricted/control-panel";
     }
 
