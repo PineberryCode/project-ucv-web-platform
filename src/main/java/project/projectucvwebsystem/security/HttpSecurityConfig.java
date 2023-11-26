@@ -105,6 +105,10 @@ public class HttpSecurityConfig {
                 Role.ADMIN.name(),
                 Role.VENDEDOR.name()
             );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/delete-only-one-product").hasAnyRole(
+                Role.ADMIN.name(),
+                Role.VENDEDOR.name()
+            );
             /*
              * Product
              */

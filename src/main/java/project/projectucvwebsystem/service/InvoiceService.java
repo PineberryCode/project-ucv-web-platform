@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.StringJoiner;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -25,10 +26,20 @@ public class InvoiceService extends Invoice {
         productCharacteristicsList.put(productName, quantity);
     }
 
-    public void viewProducts () {
+    public String viewProducts () {
+        
+        StringJoiner strJoiner = new StringJoiner("%80");
         for (Map.Entry<String, Integer> set : productCharacteristicsList.entrySet()) {
-            System.out.println("{Key: "+set.getKey()+", "+"value:"+set.getValue()+"}");
+            //System.out.println("{Key: "+set.getKey()+", "+"value:"+set.getValue()+"}");
+            String key = set.getKey();
+
+            if (key.contains(" ")) {
+                key = key.replaceAll(" ", "%25");
+            }
+            strJoiner.add(key+"%0"+set.getValue());
         }
+
+        return strJoiner.toString();
     }
 
     public void removeProduct (

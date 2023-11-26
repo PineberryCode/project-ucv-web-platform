@@ -73,7 +73,25 @@ public class ControlPanelSale {
 
         invoiceService.setCategory(category);
         invoiceService.addProduct(productName, quantity);
-        invoiceService.viewProducts();
+        System.out.println(invoiceService.viewProducts());
+
+        Cookie cookieSaleDetails = new Cookie("CookieSaleDetails", invoiceService.viewProducts());
+        //cookieSaleDetails.setMaxAge(60*60);
+        cookieSaleDetails.setPath("/restricted");
+
+        response.addCookie(cookieSaleDetails);
+    }
+
+    @PostMapping("/delete-only-one-product")
+    public void RemoveOnlyOneProduct (@RequestParam("key-product") String keyProduct) {
+        System.out.println("Removed: "+keyProduct);
+        invoiceService.removeProduct(keyProduct);
+
+        Cookie cookieSaleDetails = new Cookie("CookieSaleDetails", invoiceService.viewProducts());
+        //cookieSaleDetails.setMaxAge(60*60);
+        cookieSaleDetails.setPath("/restricted");
+
+        response.addCookie(cookieSaleDetails);
     }
 
     @PostMapping("/register-sale")

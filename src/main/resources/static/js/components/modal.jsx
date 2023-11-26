@@ -163,6 +163,49 @@ const PreviewInvoice = ({setShowModal}) => {
   
   function closeModal () {setShowModal(false);}
 
+  var getProductsAdded = getCookie("CookieSaleDetails");
+  console.log(getProductsAdded);
+  
+  let firstTime = getProductsAdded.includes("%0")
+  ? getProductsAdded.replaceAll("%0","-")
+  : getProductsAdded;
+  let secondTime = firstTime.includes("%80")
+  ? firstTime.replaceAll("%80",",")
+  : firstTime;
+  let thirdTime = secondTime.includes("%25")
+  ? secondTime.replaceAll("%25"," ")
+  : secondTime;
+
+  var pairs = thirdTime.split(",");
+  var arrayProductsAdded = [['Name Product','Quantity']];
+
+  for (let h of pairs) {
+    let name = h.split("-")[0];
+    let quantity = h.split("-")[1];
+
+    arrayProductsAdded.push([name,quantity]);
+  }
+
+  var sliceArrayProductsAdded = arrayProductsAdded.slice(1,arrayProductsAdded.length);
+  console.log(sliceArrayProductsAdded);
+
+  const handleRemoveSpecificProduct = (e) => {
+    e.preventDefault();
+
+    const form = document.getElementById('form-delete-one-product');
+    const formData = new FormData(form);
+
+    fetch ("/restricted/control-panel/delete-only-one-product", {
+      method: 'POST',
+      body: formData
+    }).then(response => {
+      console.log(response);
+      console.log([...formData]);
+    }).catch(e => {
+      console.log(e)
+    })
+  }
+
   return (
     <div
     className="modal fade" 
@@ -201,6 +244,35 @@ const PreviewInvoice = ({setShowModal}) => {
               className="form-control"
               placeholder="Número de Contacto/Teléfono"
               />
+              {sliceArrayProductsAdded.map((product_added, index) => (
+                <form 
+                key={index} 
+                id="form-delete-one-product">
+                <div
+                className="input-group mb-3">
+                  <textarea 
+                  key={index}
+                  className="form-control"
+                  type="text"
+                  value={`Producto 0${index+1}: ${product_added[0]}\nCantidad: ${product_added[1]}`}
+                  style={
+                    {maxHeight: '80px',
+                    minHeight: '80px'
+                    }
+                  }
+                  readOnly
+                  disabled />
+                  <input type="hidden" name="key-product" value={product_added[0]} />
+                  <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={handleRemoveSpecificProduct}>
+                  X
+                  </button>
+                </div>
+                </form>
+              ))}
+              
             </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
