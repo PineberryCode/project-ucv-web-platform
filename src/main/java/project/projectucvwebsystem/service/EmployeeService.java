@@ -42,6 +42,10 @@ public class EmployeeService {
        
     }*/
 
+    public int RetrieveEmployeeIDByUserID(int idUser) {
+        return employeeRepository.RetrieveEmployeeIDByUserID(idUser);
+    }
+
     public void UpdateEmployeeEmail (
         String email,
         int ID

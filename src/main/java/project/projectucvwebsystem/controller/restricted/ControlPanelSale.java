@@ -1,6 +1,7 @@
 package project.projectucvwebsystem.controller.restricted;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import project.projectucvwebsystem.service.EmployeeService;
 import project.projectucvwebsystem.service.InvoiceService;
+import project.projectucvwebsystem.service.JWTService;
 import project.projectucvwebsystem.service.ProductService;
+import project.projectucvwebsystem.service.SaleDetailsService;
+import project.projectucvwebsystem.service.SaleService;
+import project.projectucvwebsystem.service.UserService;
 
 @Controller
 @RequestMapping("/restricted/control-panel")
@@ -24,6 +30,21 @@ public class ControlPanelSale {
     
     @Autowired
     ProductService productService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    EmployeeService employeeService;
+
+    @Autowired
+    SaleService saleService;
+
+    @Autowired
+    SaleDetailsService saleDetailsService;
+
+    @Autowired
+    JWTService jwtService;
 
     @Autowired
     HttpServletRequest request;
@@ -95,9 +116,53 @@ public class ControlPanelSale {
     }
 
     @PostMapping("/register-sale")
-    public String RegisterSale () {
+    public String RegisterSale (
+        @RequestParam("surname") String surname,
+        @RequestParam("cel-client") String celClient
+    ) {
 
-        
+        /*
+         * Process to looking for employee id
+         */
+        Cookie[] cookies = request.getCookies();
+        String jwt = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    jwt = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        String username = jwtService.extractUsername(jwt);
+        int idUser = userService.FindIDByUsername(username);
+
+        int idEmployee = employeeService.RetrieveEmployeeIDByUserID(idUser);
+
+        /*
+         * End: 'Process to looking for employee id'
+         * *****************************************
+         */
+
+        int loops = 0;
+
+        String idSales = saleService.InsertSaleAndReturnID(idEmployee, surname, celClient);
+        List<Object[]> list = invoiceService.OverviewProducts();
+
+        System.out.println(invoiceService.Size());
+        System.out.println(invoiceService.viewProducts());
+        while (loops < invoiceService.Size() && invoiceService.Size() != 0) {
+            Object[] entry = list.get(loops);
+            String key = (String) entry[0];
+            System.out.println("key: "+key);
+            int quantity = invoiceService.obtainQuantity(key);
+            int idProduct = productService.getProducIDByName(key);
+
+            saleDetailsService.InsertSaleDetails(idSales, idProduct, quantity);
+            productService.RemoveStockUnits(quantity, idProduct);
+            loops++;
+        }
 
         return "redirect:/restricted/control-panel";
     }

@@ -210,6 +210,22 @@ const PreviewInvoice = ({setShowModal}) => {
     })
   }
 
+  const handleClientDataAndGeneral = (e) => {
+    e.preventDefault();
+    
+    const form = document.getElementById('form-client-data');
+    const formData = new FormData(form);
+
+    fetch ("/restricted/control-panel/register-sale", {
+      method: 'POST',
+      body: formData
+    }).then(response => {
+      console.log(response);
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
   return (
     <div
     className="modal fade" 
@@ -236,6 +252,8 @@ const PreviewInvoice = ({setShowModal}) => {
               >
                   Datos del Cliente
               </h5>
+              <form
+              id="form-client-data">
               <Input 
               name="surname" 
               type="text"  
@@ -248,6 +266,7 @@ const PreviewInvoice = ({setShowModal}) => {
               className="form-control"
               placeholder="Número de Contacto/Teléfono"
               />
+              </form>
               {sliceArrayProductsAdded.map((product_added, index) => (
                 <form 
                 key={index} 
@@ -281,8 +300,19 @@ const PreviewInvoice = ({setShowModal}) => {
               
             </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>Close</button>
-            <button type="submit" className="btn btn-primary">Registrar</button>
+            <button 
+            type="button" 
+            className="btn btn-secondary" 
+            data-bs-dismiss="modal" 
+            onClick={closeModal}>
+            Close
+            </button>
+            <button 
+            type="button" 
+            className="btn btn-primary"
+            onClick={handleClientDataAndGeneral}>
+            Registrar
+            </button>
           </div>
         </div>
       </div>

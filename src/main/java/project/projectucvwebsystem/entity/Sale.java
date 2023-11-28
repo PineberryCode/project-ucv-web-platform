@@ -25,5 +25,5 @@ public class Sale {
     private LocalDate date_sale;
     private String client_surname;
     private String client_contact_number;
-    private final double igv = 0.18;
+    private double igv;
 }

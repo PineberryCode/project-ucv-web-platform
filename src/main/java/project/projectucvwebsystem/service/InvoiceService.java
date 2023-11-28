@@ -5,8 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.Vector;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -24,6 +27,27 @@ public class InvoiceService extends Invoice {
         int quantity
     ) {
         productCharacteristicsList.put(productName, quantity);
+    }
+
+    public int Size() {
+        return productCharacteristicsList.size();
+    }
+
+    public int obtainQuantity (String key) {
+        return productCharacteristicsList.get(key);
+    }
+
+    public List<Object[]> OverviewProducts () {
+        List<Object[]> list = new ArrayList<>();
+        for (Map.Entry<String, Integer> set : productCharacteristicsList.entrySet()) {
+            Object[] array = new Object[2];
+            array[0] = set.getKey();
+            array[1] = set.getValue();
+            
+            list.add(array);
+        }
+
+        return list;
     }
 
     public String viewProducts () {

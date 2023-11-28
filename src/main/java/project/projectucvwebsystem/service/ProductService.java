@@ -19,6 +19,10 @@ public class ProductService {
         return productRepository.Categories();
     }
 
+    public int getProducIDByName (String name) {
+        return productRepository.GetProductIDByName(name);
+    }
+
     public List<Object[]> getNameLargeAndQuantities () {
         return productRepository.NameLargeAndQuantity();
     }
@@ -89,5 +93,12 @@ public class ProductService {
             unitPrice, 
             idProduct
         );
+    }
+
+    public void RemoveStockUnits (
+        int minus,
+        int idProduct
+    ) {
+        productRepository.RemoveProductQuantityByID(minus, idProduct);
     }
 }

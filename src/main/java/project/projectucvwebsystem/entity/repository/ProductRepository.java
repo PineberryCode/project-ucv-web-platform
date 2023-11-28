@@ -19,6 +19,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         nativeQuery = true)
     public String[] Categories ();
 
+    @Query(
+        value = "SELECT ID_PRODUCT "+
+        "FROM PRODUCT "+
+        "WHERE NAME_LARGE = :NAME_LARGE",
+        nativeQuery = true
+    )
+    public int GetProductIDByName(
+        @Param("NAME_LARGE") String name
+    );
+
     @Query(value = "SELECT NAME_LARGE, QUANTITY "+
     "FROM PRODUCT",
     nativeQuery = true)
@@ -126,12 +136,25 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Modifying
     @Transactional
-    @Query (
+    @Query(
         value = "DELETE PRODUCT WHERE ID_PRODUCT = :ID",
         nativeQuery = true
     )
     public void RemoveProduct (
         @Param("ID") int id
+    );
+
+    @Modifying
+    @Transactional
+    @Query(
+        value = "UPDATE PRODUCT "+
+        "SET QUANTITY = QUANTITY - :MINUS "+
+        "WHERE ID_PRODUCT = :ID",
+        nativeQuery = true
+    )
+    public void RemoveProductQuantityByID (
+        @Param("MINUS") int minus,
+        @Param("ID") int idProduct
     );
 
 }

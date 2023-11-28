@@ -19,6 +19,18 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     "ON e.ID_USER = u.ID_USER", nativeQuery = true)
     public List<Object[]> fillEmployeeRow ();
 
+    @Query(
+        value = "SELECT ID_EMPLOYEE "+
+        "FROM EMPLOYEE e "+
+        "INNER JOIN USER_TABLE u "+
+        "ON e.ID_USER = u.ID_USER "+
+        "WHERE u.ID_USER = :ID_USER",
+        nativeQuery = true
+    )
+    public int RetrieveEmployeeIDByUserID(
+        @Param("ID_USER") int idUser
+    );
+
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM EMPLOYEE WHERE ID_EMPLOYEE = :ID", nativeQuery = true)
