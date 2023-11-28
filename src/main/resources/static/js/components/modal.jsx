@@ -160,7 +160,7 @@ const FormAddNewEmployee = ({setShowModal}) => {
 }
 
 const PreviewInvoice = ({setShowModal}) => {
-  
+
   function closeModal () {setShowModal(false);}
 
   var getProductsAdded = getCookie("CookieSaleDetails");
@@ -187,9 +187,9 @@ const PreviewInvoice = ({setShowModal}) => {
   }
 
   var sliceArrayProductsAdded = arrayProductsAdded.slice(1,arrayProductsAdded.length);
-  console.log(sliceArrayProductsAdded);
-
-  const handleRemoveSpecificProduct = (e) => {
+  //console.log(sliceArrayProductsAdded);
+  //const [spliceArrayProductsAdded, setSliceArrayProductsAdded] = useState([]);
+  const handleRemoveSpecificProduct = (e, index) => {
     e.preventDefault();
 
     const form = document.getElementById('form-delete-one-product');
@@ -200,7 +200,11 @@ const PreviewInvoice = ({setShowModal}) => {
       body: formData
     }).then(response => {
       console.log(response);
-      console.log([...formData]);
+      //console.log([...formData]);
+      setTimeout(() => {
+        document.getElementById(`textarea-${index}`).remove();
+        document.getElementById(`btn-${index}`).remove();
+      }, 700);
     }).catch(e => {
       console.log(e)
     })
@@ -252,6 +256,7 @@ const PreviewInvoice = ({setShowModal}) => {
                 className="input-group mb-3">
                   <textarea 
                   key={index}
+                  id={`textarea-${index}`}
                   className="form-control"
                   type="text"
                   value={`Producto 0${index+1}: ${product_added[0]}\nCantidad: ${product_added[1]}`}
@@ -264,9 +269,10 @@ const PreviewInvoice = ({setShowModal}) => {
                   disabled />
                   <input type="hidden" name="key-product" value={product_added[0]} />
                   <button
+                  id={`btn-${index}`}
                   type="button"
                   className="btn btn-outline-danger"
-                  onClick={handleRemoveSpecificProduct}>
+                  onClick={(e) => handleRemoveSpecificProduct(e,index)}>
                   X
                   </button>
                 </div>
