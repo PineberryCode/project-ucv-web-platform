@@ -204,7 +204,7 @@ const PreviewInvoice = ({setShowModal}) => {
       setTimeout(() => {
         document.getElementById(`textarea-${index}`).remove();
         document.getElementById(`btn-${index}`).remove();
-      }, 700);
+      }, 500);
     }).catch(e => {
       console.log(e)
     })
