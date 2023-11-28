@@ -122,7 +122,7 @@ public class ControlPanelSale {
     ) {
 
         /*
-         * Process to looking for employee id
+         * The process of looking for an employee id
          */
         Cookie[] cookies = request.getCookies();
         String jwt = null;
