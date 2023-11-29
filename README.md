@@ -11,3 +11,7 @@ Leer el archivo [**CONTRIBUTING**](https://github.com/University-X/project-ucv-w
 `
 ./mvnw spring-boot:run
 `
+
+###### Pre requisitos:
+- Utilizar el gestor de base de datos **MSSQL**.
+- Descargar y compilar el script de la [base de datos](https://github.com/University-X/project-ucv-web-system/blob/master/sql/websystemdb.sql).
