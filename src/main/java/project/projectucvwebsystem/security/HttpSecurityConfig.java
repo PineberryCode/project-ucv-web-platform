@@ -131,6 +131,10 @@ public class HttpSecurityConfig {
                 Role.ADMIN.name(),
                 Role.WAREHOUSE_MANAGER.name()
             );
+            authConfig.requestMatchers(HttpMethod.POST, "/restricted/control-panel/sale-report-export-pdf").hasAnyRole(
+                Role.ADMIN.name(),
+                Role.WAREHOUSE_MANAGER.name()
+            );
             
             authConfig.requestMatchers("/error").permitAll();
             authConfig.anyRequest().denyAll();
