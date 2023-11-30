@@ -133,6 +133,31 @@ function DrawStockBarChart () {
     });
   }
 
+  function handleSaleReport(e) {
+    e.preventDefault();
+
+    fetch ('/restricted/control-panel/sale-report-export-pdf', {
+      method: 'POST'
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.blob();
+    }).then(blop => {
+      const url = window.URL.createObjectURL(new Blob([blop]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'sale-report.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    })
+    .catch(error => {
+      console.log('Fetch error: ', error);
+    });
+  }
+
   return (
     <>
       <div 
@@ -145,7 +170,12 @@ function DrawStockBarChart () {
         onClick={(e) => handleStockReport(e)}>
         Stock Report
         </button>
-        <button type="button" className="btn btn-info">Sale Report</button>
+        <button 
+        type="button" 
+        className="btn btn-info"
+        onClick={(e) => handleSaleReport(e)}>
+        Sale Report
+        </button>
       </div>
       <div 
       className="btn-group p-3 mb-4 position-static" 
