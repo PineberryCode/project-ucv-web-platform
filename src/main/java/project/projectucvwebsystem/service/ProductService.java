@@ -19,7 +19,7 @@ public class ProductService {
         return productRepository.Categories();
     }
 
-    public int getProducIDByName (String name) {
+    public Long getProducIDByName (String name) {
         return productRepository.GetProductIDByName(name);
     }
 
@@ -57,7 +57,7 @@ public class ProductService {
 
     public void UpdateCategoryFromProduct (
         String category,
-        int idProduct
+        Long idProduct
     ) {
         productRepository.UpdateCategoryFromProduct(
             category, 
@@ -67,7 +67,7 @@ public class ProductService {
 
     public void UpdateNameLargeFromProduct (
         String nameLarge,
-        int idProduct
+        Long idProduct
     ) {
         productRepository.UpdateNameLargeFromProduct (
             nameLarge, 
@@ -77,7 +77,7 @@ public class ProductService {
 
     public void UpdateQuantityFromProduct (
         int quantity,
-        int idProduct
+        Long idProduct
     ) {
         productRepository.UpdateQuantityFromProduct(
             quantity, 
@@ -87,7 +87,7 @@ public class ProductService {
 
     public void UpdateUnitPriceFromProduct (
         double unitPrice,
-        int idProduct
+        Long idProduct
     ) {
         productRepository.UpdateUnitPriceFromProduct(
             unitPrice, 
@@ -97,7 +97,7 @@ public class ProductService {
 
     public void RemoveStockUnits (
         int minus,
-        int idProduct
+        Long idProduct
     ) {
         productRepository.RemoveProductQuantityByID(minus, idProduct);
     }

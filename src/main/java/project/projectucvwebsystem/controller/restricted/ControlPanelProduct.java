@@ -46,7 +46,7 @@ public class ControlPanelProduct {
 
     @PostMapping("/update-product")
     public String UpdateProduct (
-        @RequestParam("productID") int idProduct
+        @RequestParam("productID") Long idProduct
     ) {
         
         /*

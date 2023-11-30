@@ -157,7 +157,7 @@ public class ControlPanelSale {
             String key = (String) entry[0];
             System.out.println("key: "+key);
             int quantity = invoiceService.obtainQuantity(key);
-            int idProduct = productService.getProducIDByName(key);
+            Long idProduct = productService.getProducIDByName(key);
 
             saleDetailsService.InsertSaleDetails(idSales, idProduct, quantity);
             productService.RemoveStockUnits(quantity, idProduct);

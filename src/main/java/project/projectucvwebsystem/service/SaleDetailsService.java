@@ -15,7 +15,7 @@ public class SaleDetailsService {
 
     public void InsertSaleDetails(
         String idSales,
-        int idProduct,
+        Long idProduct,
         int quantity
     ) {
         saleDetailsRepository.InsertDetails(idSales, idProduct, quantity);

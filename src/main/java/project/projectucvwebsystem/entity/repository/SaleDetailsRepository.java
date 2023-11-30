@@ -18,7 +18,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetails, String
     nativeQuery = true)
     public void InsertDetails (
         @Param("ID_SALES") String idSales,
-        @Param("ID_PRODUCT") int idProduct,
+        @Param("ID_PRODUCT") Long idProduct,
         @Param("REQUIRED_QUANTITY") int requiredQuantity
     );
 }

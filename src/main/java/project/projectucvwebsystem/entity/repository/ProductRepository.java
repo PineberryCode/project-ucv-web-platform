@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import project.projectucvwebsystem.entity.Product;
@@ -25,7 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         "WHERE NAME_LARGE = :NAME_LARGE",
         nativeQuery = true
     )
-    public int GetProductIDByName(
+    public Long GetProductIDByName(
         @Param("NAME_LARGE") String name
     );
 
@@ -95,7 +96,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateCategoryFromProduct (
         @Param("CATEGORY") String category,
-        @Param("ID") int idProduct
+        @Param("ID") Long idProduct
     );
 
     @Modifying
@@ -107,7 +108,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateNameLargeFromProduct (
         @Param("NAME_LARGE") String nameLarge,
-        @Param("ID") int idProduct
+        @Param("ID") Long idProduct
     );
 
     @Modifying
@@ -119,7 +120,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateQuantityFromProduct (
         @Param("QUANTITY") int quantity,
-        @Param("ID") int idProduct
+        @Param("ID") Long idProduct
     );
 
     @Modifying
@@ -131,7 +132,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void UpdateUnitPriceFromProduct (
         @Param("UNIT_PRICE") double unitPrice,
-        @Param("ID") int idProduct
+        @Param("ID") Long idProduct
     );
 
     @Modifying
@@ -141,7 +142,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         nativeQuery = true
     )
     public void RemoveProduct (
-        @Param("ID") int id
+        @Param("ID") Long id
     );
 
     @Modifying
@@ -154,7 +155,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     public void RemoveProductQuantityByID (
         @Param("MINUS") int minus,
-        @Param("ID") int idProduct
+        @Param("ID") Long idProduct
     );
 
 }
