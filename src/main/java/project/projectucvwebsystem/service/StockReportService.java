@@ -24,7 +24,7 @@ import project.projectucvwebsystem.entity.repository.ProductRepository;
 public class StockReportService {
     
     @Autowired
-    ProductRepository productDTORepository;
+    ProductRepository productRepository;
 
     private List<ProductDTO> convertToProductDTOList(List<Object[]> rawDataList) {
         List<ProductDTO> productDTOList = new ArrayList<>();
@@ -44,6 +44,6 @@ public class StockReportService {
     }
 
     public List<ProductDTO> exportData() {
-        return convertToProductDTOList(productDTORepository.DataAllProducts());
+        return convertToProductDTOList(productRepository.DataAllProducts());
     }
 }
