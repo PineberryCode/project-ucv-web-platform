@@ -1,8 +1,6 @@
 package project.projectucvwebsystem.dto;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductDTO {
+public class SaleDTO {
     
-    private Long id_product;
-    private String alias;
+    private String id_sales;
+    private Long id_employee;
+    private Date date_sale;
     private String name_large;
-    private int quantity;
-    private double unit_price;
-
+    private double total;
+    
 }

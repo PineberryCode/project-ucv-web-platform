@@ -1,6 +1,7 @@
 package project.projectucvwebsystem.entity.repository;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +13,18 @@ import project.projectucvwebsystem.entity.Sale;
 
 public interface SaleRepository extends JpaRepository<Sale, String> {
     
+    @Query(
+        value = "SELECT s.ID_SALES, s.ID_EMPLOYEE, s.DATE_SALE, p.NAME_LARGE, "+
+        "((p.UNIT_PRICE * sd.REQUIRED_QUANTITY * s.IGV)+(p.UNIT_PRICE * sd.REQUIRED_QUANTITY)) AS TOTAL "+
+        "FROM SALES s "+
+        "INNER JOIN SALE_DETAILS sd "+
+        "ON s.ID_SALES = sd.ID_SALES "+
+        "INNER JOIN PRODUCT p "+
+        "ON sd.ID_PRODUCT = p.ID_PRODUCT",
+        nativeQuery = true
+    )
+    public List<Object[]> saleReport();
+
     @Query(
         value = "SELECT COUNT(ID_SALES) "+
         "FROM SALES",

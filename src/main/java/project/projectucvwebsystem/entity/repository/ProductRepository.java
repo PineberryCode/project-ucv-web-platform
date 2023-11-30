@@ -12,7 +12,7 @@ import jakarta.transaction.Transactional;
 import project.projectucvwebsystem.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    
+
     @Query(
         value = "SELECT DISTINCT c.ALIAS "+
         "FROM CATEGORY c JOIN PRODUCT p "+
