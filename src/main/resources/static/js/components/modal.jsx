@@ -159,11 +159,12 @@ const FormAddNewEmployee = ({setShowModal}) => {
   );
 }
 
-const PreviewInvoice = ({setShowModal}) => {
+const PreviewInvoice = ({setShowModal, array}) => {
 
-  //console.log('Preview: ',array);
-
-  function closeModal () {setShowModal(false);}
+  function closeModal (e) {
+    e.preventDefault();
+    setShowModal(false);
+  }
 
   var getProductsAdded = getCookie("CookieSaleDetails");
   console.log(getProductsAdded);
@@ -299,14 +300,17 @@ const PreviewInvoice = ({setShowModal}) => {
                 </div>
                 </form>
               ))}
-              
+              <div className="container">
+                <label htmlFor="disabledInput" className="form-label me-3"><b>IGV: </b>{array[0]}</label>
+                <label htmlFor="disabledInput" className="form-label"><b>Total: </b>{array[1]}</label>
+              </div>
             </div>
           <div className="modal-footer">
             <button 
             type="button" 
             className="btn btn-secondary" 
             data-bs-dismiss="modal" 
-            onClick={closeModal}>
+            onClick={(e) => closeModal(e)}>
             Close
             </button>
             <button 

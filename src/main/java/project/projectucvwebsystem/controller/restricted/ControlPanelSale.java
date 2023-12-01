@@ -102,8 +102,6 @@ public class ControlPanelSale {
         System.out.println(invoiceService.viewProducts());
 
         String[] priceByProductList = saleService.showUniquePriceByProduct(quantity, productName);
-        //System.out.println(quantity);
-        //System.out.println(productName);
         
         StringBuilder strBuilder = new StringBuilder();
 
@@ -112,24 +110,6 @@ public class ControlPanelSale {
         }
 
         byte[] priceAndIGV = strBuilder.toString().getBytes();
-        /*HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);*/
-        //System.out.println("hoooooooo");
-        //String priceByProduct = priceByProductList.stream().map(row -> row[0]+"%80"+row[1]).collect(Collectors.joining("%15"));
-
-        /*priceByProduct = priceByProduct.contains(" ")
-        ? priceByProduct.replace(" ", "%25")
-        : priceByProduct;*/
-
-        /*Cookie priceByProductCookieStored = new Cookie("PriceByProduct", priceByProduct);
-        priceByProductCookieStored.setMaxAge(60*60);
-        priceByProductCookieStored.setPath("/restricted");*/
-
-        /*response.addCookie(priceByProductCookieStored);
-
-        for (Object[] price : priceByProductList) {
-            System.out.println(price[0]);
-        }*/
 
         Cookie cookieSaleDetails = new Cookie("CookieSaleDetails", invoiceService.viewProducts());
         //cookieSaleDetails.setMaxAge(60*60);

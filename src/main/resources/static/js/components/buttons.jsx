@@ -1,5 +1,4 @@
-
-//const {useState} = React;
+//Don't add this '{showModal != true...' because the modal will lock
 
 const ButtonAddNewSupplier = () => {
 
@@ -16,7 +15,7 @@ const ButtonAddNewSupplier = () => {
             onClick={handleButtonClick}>
             +
             </button>
-            {showModal != true && <FormAddNewSupplier setShowModal={setShowModal} />}
+            {showModal && <FormAddNewSupplier setShowModal={setShowModal} />}
         </>
     );
 }
@@ -37,7 +36,7 @@ const ButtonAddNewProduct = () => {
             onClick={handleButtonClick}>
             Agregar Nuevo Producto
             </button>
-            {showModal != true && <FormAddNewProduct setShowModal={setShowModal} />}
+            {showModal && <FormAddNewProduct setShowModal={setShowModal} />}
         </>
     );
 }
@@ -58,7 +57,7 @@ const ButtonAddNewEmployee = () => {
             >
             +
             </button>
-            {showModal != true && <FormAddNewEmployee setShowModal={setShowModal} />}
+            {showModal && <FormAddNewEmployee setShowModal={setShowModal} />}
         </>
     );
 }
@@ -80,7 +79,7 @@ const fetchAddProduct = () => {
         })
         .then(data => {
             let text = new TextDecoder('utf-8').decode(data);
-            resolve(text = text.split(','));
+            resolve(text.split(','));
         })
         .catch(error => {
             reject(error);
@@ -101,7 +100,7 @@ const ButtonAddNewProductFromSale = () => {
         try {
             arr_price_product = await fetchAddProduct();
             for (let x of arr_price_product) {
-                console.log(x);
+                console.log('ButtonAddNew',x);
             }
         } catch (error) {
             console.error('Exception: ', error);
@@ -124,14 +123,22 @@ const ButtonAddNewProductFromSale = () => {
 
 const ButtonLookAtInvoice = () => {
     const [showModal, setShowModal] = useState(false);
-    var array_total_product;
-    if (arr_price_product != undefined) {
-        console.log('ButtonLook',arr_price_product);
-    }
+    const [arrayTotal, setArrayTotal] = useState([]);
+
+    /*useEffect(() => {
+        if (arr_price_product !== undefined && arr_price_product.length > 0) {
+            setArrayTotal(arr_price_product);
+            //console.log('asdfasdf',setArrayTotal);
+        }
+    }, arrayTotal);*/
 
     const handleButtonClick = (e) => {
         e.preventDefault();
         setShowModal(true);
+        if (arr_price_product !== undefined && arr_price_product.length > 0) {
+            setArrayTotal(arr_price_product);
+            //console.log('asdfasdf',setArrayTotal);
+        }
     }
 
     return (
@@ -145,9 +152,11 @@ const ButtonLookAtInvoice = () => {
             >
             Ver Factura
             </button>
-            {showModal != true && 
+            {showModal &&
             <PreviewInvoice 
-            setShowModal={setShowModal}/>
+            setShowModal={setShowModal}
+            array={arrayTotal}
+            />
             }
         </>
     );

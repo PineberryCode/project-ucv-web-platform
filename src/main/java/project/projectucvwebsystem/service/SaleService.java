@@ -24,7 +24,7 @@ public class SaleService {
 
         LocalDate currentDate = LocalDate.now();
         Date sqlDate = Date.valueOf(currentDate);
-        String idSales = String.format("%010d%s", counter, currentDate);//currentDate.toString();
+        String idSales = String.format("%010d%s", counter, currentDate);
 
         double igv = 0.18;
 
