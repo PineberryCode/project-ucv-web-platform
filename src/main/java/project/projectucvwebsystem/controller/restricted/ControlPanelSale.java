@@ -108,10 +108,6 @@ public class ControlPanelSale {
         StringBuilder strBuilder = new StringBuilder();
 
         for (String obj : priceByProductList) {
-            
-            if (obj.contains(",")) {
-                obj.replaceAll(" ", "%80");
-            }
             strBuilder.append(obj);
         }
 

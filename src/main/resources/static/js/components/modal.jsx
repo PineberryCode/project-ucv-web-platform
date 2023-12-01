@@ -110,13 +110,13 @@ const FormAddNewEmployee = ({setShowModal}) => {
           method="POST">
               <div className="modal-body">
                 <div 
-                class="accordion shadow p-2 mb-4 bg-body rounded" 
+                className="accordion shadow p-2 mb-4 bg-body rounded" 
                 id="accordionUser"
                 >
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingOne">
                     <button 
-                    class="accordion-button" 
+                    className="accordion-button" 
                     type="button" 
                     data-bs-toggle="collapse" 
                     data-bs-target="#collapseOne" 
@@ -127,10 +127,10 @@ const FormAddNewEmployee = ({setShowModal}) => {
                   </h2>
                   <div 
                   id="collapseOne" 
-                  class="accordion-collapse collapse" 
+                  className="accordion-collapse collapse" 
                   aria-labelledby="headingOne" 
                   data-bs-parent="#accordionUser">
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <select name="roles" className="form-select mb-3" aria-label="Default Select Value">
                         <option defaultValue>Selecciona el Rol</option>
                         <option defaultValue="ADMIN">ADMIN</option>
@@ -160,6 +160,8 @@ const FormAddNewEmployee = ({setShowModal}) => {
 }
 
 const PreviewInvoice = ({setShowModal}) => {
+
+  //console.log('Preview: ',array);
 
   function closeModal () {setShowModal(false);}
 
@@ -225,34 +227,6 @@ const PreviewInvoice = ({setShowModal}) => {
       console.log(e);
     });
   }
-
-  /*const priceByProduct = getCookie("PriceByProduct");
-
-  var first_time_price = priceByProduct.includes('%25')
-  ? priceByProduct.replaceAll('%25',' ')
-  : priceByProduct;
-  var second_time_price = first_time_price.includes('%80')
-  ? first_time_price.replaceAll('%80','-')
-  : first_time_price;
-  var third_time_price = second_time_price.includes('%15')
-  ? second_time_price.replaceAll('%15',',')
-  : second_time_price;
-  
-  var pairs_price = third_time_price.split(",");
-  var array_prices_added = [['IGV','Price']];
-  for (let g of pairs_price) {
-    //Improve this: The igv has be include once in the modal
-    let igv = g.split("-")[0];
-    let price = g.split("-")[1];
-
-    array_prices_added.push([igv,price]);
-  }
-
-  //var sum = slice_array_prices_added.reduce((total, current) => total + parseFloat(current[1]), 0);
-  //console.log(sum);
-  var slice_array_prices_added = array_prices_added.slice(1,array_prices_added.length);*/
-
-  //console.log(slice_array_prices_added[0]);
 
   return (
     <div
