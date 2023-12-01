@@ -30,7 +30,7 @@ const SalesContent = () => {
     
                 //arrProduct = second_time.split(',');
                 setArrProduct(second_time.split(','));
-    
+
                 console.log(arrProduct)
             }, 1000);
         })

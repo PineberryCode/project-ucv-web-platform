@@ -2,6 +2,7 @@ package project.projectucvwebsystem.service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,12 @@ public class SaleService {
         saleRepository.InsertSale(idSales, idEmployee, sqlDate, clientSurname, clientPhone, igv);
 
         return idSales;
+    }
+
+    public String[] showUniquePriceByProduct (
+        int requiredQuantity,
+        String nameLarge
+    ) {
+        return saleRepository.showUniquePriceByProduct(requiredQuantity, nameLarge);
     }
 }

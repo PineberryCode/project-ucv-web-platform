@@ -66,6 +66,7 @@ const ButtonAddNewEmployee = () => {
 const ButtonAddNewProductFromSale = () => {
 
     const [showToast, setToast] = useState(false);
+
     const handleButtonClick = (e) => {
         e.preventDefault();
         setToast(true);
@@ -77,10 +78,10 @@ const ButtonAddNewProductFromSale = () => {
             body: formData
         })
         .then(response => {
-            console.log('Solicitud completada.',response);
-            setTimeout (() => {
-                
-            }, 1000);
+            response.arrayBuffer().then(data => {
+                let text = new TextDecoder('utf-8').decode(data);
+                console.log(text);
+            });
         })
         .catch(error => {
             console.error('Exception: ',error)
@@ -93,7 +94,7 @@ const ButtonAddNewProductFromSale = () => {
         id="liveToastBtn"
         type="button"
         className="btn btn-outline-info"
-        onClick={handleButtonClick}>
+        onClick={(e) => handleButtonClick(e)}>
         Agregar Producto
         </button>
         {showToast && <MyToast setToast={setToast}/>}
@@ -103,7 +104,10 @@ const ButtonAddNewProductFromSale = () => {
 
 const ButtonLookAtInvoice = () => {
     const [showModal, setShowModal] = useState(false);
-    const handleButtonClick = () => {setShowModal(true);}
+    const handleButtonClick = (e) => {
+        e.preventDefault();
+        setShowModal(true);
+    }
 
     return (
         <>
@@ -112,7 +116,7 @@ const ButtonLookAtInvoice = () => {
             data-bs-toggle="modal"
             data-bs-target="#staticBackdropInvoice"
             className="btn btn-info"
-            onClick={handleButtonClick}
+            onClick={(e) => handleButtonClick(e)}
             >
             Ver Factura
             </button>

@@ -14,6 +14,19 @@ import project.projectucvwebsystem.entity.Sale;
 public interface SaleRepository extends JpaRepository<Sale, String> {
     
     @Query(
+        value = "SELECT TOP 1 s.IGV, "+
+        "(SELECT ((UNIT_PRICE * :REQUIRED_QUANTITY * s.IGV)+(UNIT_PRICE * :REQUIRED_QUANTITY)) "+
+        "FROM PRODUCT "+
+        "WHERE NAME_LARGE = :NAME_LARGE) "+
+        "FROM SALES s",
+        nativeQuery = true
+    )
+    public String[] showUniquePriceByProduct(
+        @Param("REQUIRED_QUANTITY") int requiredQuantity,
+        @Param("NAME_LARGE") String nameLarge
+    );
+
+    @Query(
         value = "SELECT s.ID_SALES, s.ID_EMPLOYEE, s.DATE_SALE, p.NAME_LARGE, "+
         "((p.UNIT_PRICE * sd.REQUIRED_QUANTITY * s.IGV)+(p.UNIT_PRICE * sd.REQUIRED_QUANTITY)) AS TOTAL "+
         "FROM SALES s "+

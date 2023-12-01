@@ -1,10 +1,15 @@
 package project.projectucvwebsystem.controller.restricted;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,21 +91,60 @@ public class ControlPanelSale {
     }
 
     @PostMapping("/add-product")
-    public void addProduct (
+    public ResponseEntity<byte[]> addProduct (
         @RequestParam("category") String category,
         @RequestParam("product-name") String productName,
         @RequestParam("quantity") int quantity
-    ) {
+    ) throws Exception {
 
         invoiceService.setCategory(category);
         invoiceService.addProduct(productName, quantity);
         System.out.println(invoiceService.viewProducts());
+
+        String[] priceByProductList = saleService.showUniquePriceByProduct(quantity, productName);
+        //System.out.println(quantity);
+        //System.out.println(productName);
+        
+        StringBuilder strBuilder = new StringBuilder();
+
+        for (String obj : priceByProductList) {
+            
+            if (obj.contains(",")) {
+                obj.replaceAll(" ", "%80");
+            }
+            strBuilder.append(obj);
+        }
+
+        byte[] priceAndIGV = strBuilder.toString().getBytes();
+        /*HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);*/
+        //System.out.println("hoooooooo");
+        //String priceByProduct = priceByProductList.stream().map(row -> row[0]+"%80"+row[1]).collect(Collectors.joining("%15"));
+
+        /*priceByProduct = priceByProduct.contains(" ")
+        ? priceByProduct.replace(" ", "%25")
+        : priceByProduct;*/
+
+        /*Cookie priceByProductCookieStored = new Cookie("PriceByProduct", priceByProduct);
+        priceByProductCookieStored.setMaxAge(60*60);
+        priceByProductCookieStored.setPath("/restricted");*/
+
+        /*response.addCookie(priceByProductCookieStored);
+
+        for (Object[] price : priceByProductList) {
+            System.out.println(price[0]);
+        }*/
 
         Cookie cookieSaleDetails = new Cookie("CookieSaleDetails", invoiceService.viewProducts());
         //cookieSaleDetails.setMaxAge(60*60);
         cookieSaleDetails.setPath("/restricted");
 
         response.addCookie(cookieSaleDetails);
+        
+        return ResponseEntity.ok()
+        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+        .body(priceAndIGV);
+        
     }
 
     @PostMapping("/delete-only-one-product")
