@@ -21,7 +21,7 @@ public interface SaleRepository extends JpaRepository<Sale, String> {
         "FROM SALES s",
         nativeQuery = true
     )
-    public String[] showUniquePriceByProduct(
+    public String showUniquePriceByProduct(
         @Param("REQUIRED_QUANTITY") int requiredQuantity,
         @Param("NAME_LARGE") String nameLarge
     );

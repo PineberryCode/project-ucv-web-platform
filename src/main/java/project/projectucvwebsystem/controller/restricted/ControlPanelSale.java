@@ -1,6 +1,11 @@
 package project.projectucvwebsystem.controller.restricted;
 
+import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -8,10 +13,12 @@ import java.util.StringJoiner;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +28,17 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import project.projectucvwebsystem.dto.InvoiceDTO;
 import project.projectucvwebsystem.service.EmployeeService;
+import project.projectucvwebsystem.service.InvoicePrintService;
 import project.projectucvwebsystem.service.InvoiceService;
 import project.projectucvwebsystem.service.JWTService;
 import project.projectucvwebsystem.service.ProductService;
@@ -49,6 +66,9 @@ public class ControlPanelSale {
     SaleDetailsService saleDetailsService;
 
     @Autowired
+    InvoicePrintService invoicePrintService;
+
+    @Autowired
     JWTService jwtService;
 
     @Autowired
@@ -59,6 +79,9 @@ public class ControlPanelSale {
 
     @Autowired
     InvoiceService invoiceService;
+
+    List<String[]> priceByProductListInCompilation = new ArrayList<>();
+    double sum = 0.0;
 
     @PostMapping("/extract-category") 
     public void ExtractProduct () {
@@ -101,15 +124,24 @@ public class ControlPanelSale {
         invoiceService.addProduct(productName, quantity);
         System.out.println(invoiceService.viewProducts());
 
-        String[] priceByProductList = saleService.showUniquePriceByProduct(quantity, productName);
+        String[] priceByProductArr = saleService.showUniquePriceByProduct(quantity, productName);
         
-        StringBuilder strBuilder = new StringBuilder();
+        priceByProductListInCompilation.add(priceByProductArr);
 
-        for (String obj : priceByProductList) {
-            strBuilder.append(obj);
+        
+        for (String[] strArr : priceByProductListInCompilation) {
+            double aux =  Double.parseDouble(strArr[1]);
+            sum += aux;
         }
+        System.out.println("Sum: "+sum);
 
-        byte[] priceAndIGV = strBuilder.toString().getBytes();
+        StringJoiner joiner = new StringJoiner(",");
+        DecimalFormat de = new DecimalFormat("#####.##");
+
+        joiner.add(String.valueOf(priceByProductArr[0]));
+        joiner.add(String.valueOf(de.format(sum)));
+
+        byte[] priceAndIGV = joiner.toString().getBytes();
 
         Cookie cookieSaleDetails = new Cookie("CookieSaleDetails", invoiceService.viewProducts());
         //cookieSaleDetails.setMaxAge(60*60);
@@ -136,7 +168,7 @@ public class ControlPanelSale {
     }
 
     @PostMapping("/register-sale")
-    public String RegisterSale (
+    public ResponseEntity<byte[]> RegisterSale (
         @RequestParam("surname") String surname,
         @RequestParam("cel-client") String celClient
     ) {
@@ -184,7 +216,52 @@ public class ControlPanelSale {
             loops++;
         }
 
-        return "redirect:/restricted/control-panel";
+        try {
+            InvoiceDTO headerData = invoicePrintService.getGeneralForInvoice();
+            headerData.setTotal_all_products( ((Number) sum).doubleValue() );
+            System.out.println("headerData: "+headerData.getId_sales());
+            List<InvoiceDTO> exportedData = invoicePrintService.getDataForInvoiceTable(headerData.getId_sales());
+
+            for (InvoiceDTO s : exportedData) {
+                System.out.println("ex: "+s);
+            }
+
+            JasperPrint jasperPrint = generateJasperInvoicePrint(exportedData, headerData);
+
+            byte[] pdfInvoicePrintArray = JasperExportManager.exportReportToPdf(jasperPrint);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", "invoice-print.pdf");
+
+            return new ResponseEntity<>(pdfInvoicePrintArray, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        //return "redirect:/restricted/control-panel";
+    }
+
+    private JasperPrint generateJasperInvoicePrint(
+        List<InvoiceDTO> exportedData, 
+        InvoiceDTO headerData
+    ) throws FileNotFoundException, JRException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("productInvoiceData", new JRBeanCollectionDataSource(exportedData));
+        parameters.put("id_sales", headerData.getId_sales());
+        parameters.put("surname", headerData.getSurname());
+        parameters.put("client_cel", headerData.getClient_cel());
+        parameters.put("igv", headerData.getIgv());
+        parameters.put("total_all_products", headerData.getTotal_all_products());
+        
+        System.out.println("Mapita: "+headerData.getId_sales());
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(JasperCompileManager.compileReport(
+            ResourceUtils.getFile("classpath:report/print_invoice.jrxml").getAbsolutePath()
+        ), parameters, new JREmptyDataSource());
+        
+        return jasperPrint;
     }
 
 }

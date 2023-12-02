@@ -38,6 +38,7 @@ public class SaleService {
         int requiredQuantity,
         String nameLarge
     ) {
-        return saleRepository.showUniquePriceByProduct(requiredQuantity, nameLarge);
+        String[] resultSplitted = saleRepository.showUniquePriceByProduct(requiredQuantity, nameLarge).split(",");
+        return resultSplitted;
     }
 }

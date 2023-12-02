@@ -60,23 +60,9 @@ public class StockReportController {
     }
 
     private JasperPrint generateJasperPrint(List<ProductDTO> exportedData) throws JRException, FileNotFoundException {
-        /*InputStream reportStream = getClass().getResourceAsStream("/report/stock_report.jrxml");
-        JasperDesign jasperDesign = JRXmlLoader.load(reportStream);
-
-        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(exportedData);
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("stockData", dataSource);
-
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);*/
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("stockData", new JRBeanCollectionDataSource(exportedData));
 
-        
-        //parameters.put("stockData", new JRBeanCollectionDataSource(exportedData, false));
-        //System.out.println(parameters.get("stockData"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(JasperCompileManager.compileReport(
             ResourceUtils.getFile("classpath:report/stock_report.jrxml").getAbsolutePath()
         ), parameters, new JREmptyDataSource());

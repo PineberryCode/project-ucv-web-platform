@@ -223,9 +223,22 @@ const PreviewInvoice = ({setShowModal, array}) => {
       body: formData
     }).then(response => {
       console.log(response);
-      //Another method that shows details
-    }).catch(e => {
-      console.log(e);
+      if (!response.ok) {
+        throw new Error(`HTTP erro! Status: ${response.status}`);
+      }
+      return response.blob();
+    })
+    .then(blop => {
+      const url = window.URL.createObjectURL(new Blob([blop]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'print-invoice.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    })
+    .catch(e => {
+      console.log('Fetch error: ', e);
     });
   }
 
