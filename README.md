@@ -1,7 +1,7 @@
 # ucv-web-platform
 Web system based on control of stock and sale 👨‍💻.
 ### Warning:
-Leer el archivo [**CONTRIBUTING**](https://github.com/University-X/project-ucv-web-system/blob/master/CONTRIBUTING.md) antes de colaborar.
+Leer el archivo [**CONTRIBUTING**](https://github.com/PineberryCode/project-ucv-web-platform/blob/master/CONTRIBUTING.md) antes de colaborar.
 
 #### Windows
 `
@@ -18,7 +18,7 @@ Leer el archivo [**CONTRIBUTING**](https://github.com/University-X/project-ucv-w
 
 - - -
 > [!NOTE]
-> Debes cambiar el usuario y contraseña en el [archivo ".properties"](http://google.com)
+> Debes cambiar el usuario y contraseña en el archivo [.properties](https://github.com/PineberryCode/project-ucv-web-platform/blob/master/src/main/resources/application.properties)
 
 ```TXT
 // Set up these
