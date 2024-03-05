@@ -14,7 +14,7 @@ Leer el archivo [**CONTRIBUTING**](https://github.com/University-X/project-ucv-w
 
 ###### Pre requisitos:
 - Utilizar el gestor de base de datos **MSSQL**.
-- Descargar y compilar el script de la [base de datos](https://github.com/University-X/project-ucv-web-system/blob/master/sql/websystemdb.sql).
+- Descargar y compilar el script de la [base de datos](https://github.com/PineberryCode/project-ucv-web-platform/blob/master/sql/websystemdb.sql).
 
 - - -
 > [!NOTE]
